@@ -1,0 +1,28 @@
+{
+  "schema_version": "learning-profile/v1",
+  "project_id": "mini-product-lab",
+  "schedule_id": "mini-product-lab-season-1",
+  "schedule_week": 1,
+  "goals": [
+    {
+      "id": "G-001",
+      "statement": "Trở thành fullstack senior biết tự ra quyết định thiết kế khi làm việc cùng AI agent",
+      "status": "active",
+      "accepted_at": "2026-10-28T03:59:23Z"
+    }
+  ],
+  "baseline": {
+    "summary": "Tự xây được web app fullstack (frontend, backend, database) mà không cần AI",
+    "prerequisites": [],
+    "strengths": [],
+    "independence": "unknown",
+    "recorded_at": "2026-10-28T03:59:23Z"
+  },
+  "competencies": [],
+  "current_gaps": [],
+  "progress_history": [],
+  "active_session_id": "cron-doctor-001",
+  "next_action": null,
+  "cadence": "mini-project",
+  "updated_at": "2026-10-28T03:59:23Z"
+}

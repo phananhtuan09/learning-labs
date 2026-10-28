@@ -1,0 +1,71 @@
+{
+  "schema_version": "learning-project/v1",
+  "project_id": "mini-product-lab",
+  "title": "Mini Product Lab",
+  "status": "active",
+  "accepted_at": "2026-10-28T03:58:50Z",
+  "version": 1,
+  "domain": {
+    "name": "developer-and-ops-tools",
+    "summary": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions."
+  },
+  "product": {
+    "goal": "Build useful small software products while practicing specification clarification, implementation judgment, failure handling, and evidence-backed revision.",
+    "primary_actors": [
+      "learner",
+      "developer",
+      "end user",
+      "operator"
+    ],
+    "base_capabilities": [
+      "clarify product requirements",
+      "ship bounded feature slices",
+      "build developer tools",
+      "integrate local or external interfaces",
+      "diagnose failures and revise decisions",
+      "review implementation and evidence"
+    ]
+  },
+  "architecture_baseline": {
+    "summary": "Local-first CLI, proxy, or small worker implementations selected per mini-project; no web application; use the simplest architecture that satisfies the accepted specification.",
+    "application_shape": "small-product-slices",
+    "components": [
+      "CLI or terminal interface",
+      "application logic",
+      "bounded integration or evidence harness"
+    ],
+    "data_stores": [
+      "in-memory state or local files when the specification requires persistence"
+    ],
+    "external_integrations": [
+      "local HTTP endpoints or explicitly bounded third-party APIs"
+    ],
+    "deployment": "local process or disposable preview; production deployment is out of scope unless explicitly authorized"
+  },
+  "base_business_rules": [
+    "Every mini-project has one user-facing deliverable and explicit definition-of-done criteria.",
+    "Functional requirements and acceptance criteria define the product scope; learning criteria must not replace them.",
+    "Complexity must be justified by a requirement, constraint, or observed failure."
+  ],
+  "base_constraints": [
+    "Each mini-project is scoped to two or three work sessions with a bounded daily time budget; the learner may spread those sessions over one to two calendar weeks.",
+    "Disposable experiments run locally or in an isolated temporary environment.",
+    "A passing implementation does not by itself prove that the learner understands the design."
+  ],
+  "current_state": {
+    "accepted_decisions": [],
+    "delivered_capabilities": [],
+    "active_constraints": []
+  },
+  "evolution_history": [
+    {
+      "version": 1,
+      "session_id": null,
+      "summary": "Initial mini-project learning program: non-web tools, one product per one-to-two-week cycle.",
+      "decisions": [],
+      "delivered_capabilities": [],
+      "active_constraints": [],
+      "accepted_at": "2026-10-28T03:58:50Z"
+    }
+  ]
+}

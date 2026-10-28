@@ -1,0 +1,94 @@
+{
+  "schema_version": "learning-schedule/v1",
+  "schedule_id": "mini-product-lab-season-1",
+  "project_id": "mini-product-lab",
+  "status": "active",
+  "accepted_at": "2026-10-28T03:58:50Z",
+  "started_at": "2026-10-28T03:58:50Z",
+  "horizon_weeks": 4,
+  "sessions_per_week": 1,
+  "recalibration_every_weeks": 2,
+  "cadence_model": "mini-project",
+  "default_duration_days": 2,
+  "daily_time_budget_minutes": 45,
+  "available_modes": [
+    "practice",
+    "challenge"
+  ],
+  "current_week": 1,
+  "weeks": [
+    {
+      "week": 1,
+      "theme": "Make a CLI useful under real constraints",
+      "competency_focus": [
+        "input modeling",
+        "error semantics",
+        "operational usability"
+      ],
+      "project_focus": "Cron Doctor",
+      "mini_project_ids": [
+        "cron-doctor"
+      ],
+      "target_duration_days": 2,
+      "status": "in-progress",
+      "completed_session_ids": [],
+      "evidence_refs": [],
+      "adjustments": []
+    },
+    {
+      "week": 2,
+      "theme": "Ship a developer tool",
+      "competency_focus": [
+        "spec clarification",
+        "boundary reasoning",
+        "delivery"
+      ],
+      "project_focus": "Webhook Replay Inspector",
+      "mini_project_ids": [
+        "webhook-replay-inspector"
+      ],
+      "target_duration_days": 3,
+      "status": "planned",
+      "completed_session_ids": [],
+      "evidence_refs": [],
+      "adjustments": []
+    },
+    {
+      "week": 3,
+      "theme": "Explore behavior with a failure tool",
+      "competency_focus": [
+        "integration design",
+        "failure classification",
+        "evidence interpretation"
+      ],
+      "project_focus": "API Chaos Proxy",
+      "mini_project_ids": [
+        "api-chaos-proxy"
+      ],
+      "target_duration_days": 3,
+      "status": "planned",
+      "completed_session_ids": [],
+      "evidence_refs": [],
+      "adjustments": []
+    },
+    {
+      "week": 4,
+      "theme": "Resolve an incident and ship the fix",
+      "competency_focus": [
+        "debugging",
+        "retry semantics",
+        "safe change delivery"
+      ],
+      "project_focus": "Background Job Retry Incident",
+      "mini_project_ids": [
+        "background-job-retry-incident"
+      ],
+      "target_duration_days": 2,
+      "status": "planned",
+      "completed_session_ids": [],
+      "evidence_refs": [],
+      "adjustments": []
+    }
+  ],
+  "revision_history": []
+}

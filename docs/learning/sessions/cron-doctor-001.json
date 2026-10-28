@@ -1,0 +1,161 @@
+{
+  "schema_version": "learning-session/v1",
+  "session_id": "cron-doctor-001",
+  "case_id": "cron-doctor",
+  "case_path": "docs/learning/cases/cron-doctor.json",
+  "case_checksum": "61e4f67675418e360b92e6e61db1e112d6dbf76dfae32e7ed28b2991a3e3c8f5",
+  "status": "active",
+  "started_at": "2026-10-28T03:59:23Z",
+  "updated_at": "2026-10-28T04:03:07Z",
+  "active_competency": {
+    "id": "COMP-CRON-001",
+    "name": "Thiết kế input contract và error semantics cho CLI",
+    "description": "Tạo một command có behavior dự đoán được, lỗi hữu ích và boundary rõ ràng thay vì cố hỗ trợ quá nhiều syntax."
+  },
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "project_version": 1,
+    "schedule_id": "mini-product-lab-season-1",
+    "schedule_week": 1,
+    "project_snapshot": {
+      "title": "Mini Product Lab",
+      "domain": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions.",
+      "product_goal": "Build useful small software products while practicing specification clarification, implementation judgment, failure handling, and evidence-backed revision.",
+      "architecture_baseline": "Local-first CLI, proxy, or small worker implementations selected per mini-project; no web application; use the simplest architecture that satisfies the accepted specification."
+    },
+    "weekly_plan": {
+      "theme": "Make a CLI useful under real constraints",
+      "competency_focus": [
+        "input modeling",
+        "error semantics",
+        "operational usability"
+      ],
+      "project_focus": "Cron Doctor",
+      "mini_project_ids": [
+        "cron-doctor"
+      ],
+      "target_duration_days": 2
+    },
+    "project_spec": {
+      "problem": "Developers discover scheduled-job mistakes only after jobs run at the wrong time or overlap in production.",
+      "user": "A developer or operator reviewing a local schedule before deploying it.",
+      "functional_requirements": [
+        "Read a documented local schedule format.",
+        "Show the next run time for each valid job.",
+        "Report malformed expressions with a useful location and reason.",
+        "Warn when two jobs may overlap.",
+        "Accept an explicit timezone setting for the analysis."
+      ],
+      "acceptance_criteria": [
+        "The same input produces the same output when the timezone is explicit.",
+        "An invalid entry does not prevent the user from seeing which other entries are valid.",
+        "An overlap warning names both jobs and the relevant time window.",
+        "The CLI uses a non-zero exit code when the input cannot be analyzed safely.",
+        "The tool does not silently rewrite the schedule."
+      ],
+      "constraints": [
+        "Use a small documented subset of cron syntax.",
+        "No daemon or background scheduler is required.",
+        "No remote service or database is required.",
+        "The tool must remain useful on a terminal without color support."
+      ],
+      "non_goals": [
+        "Implementing every cron dialect.",
+        "Replacing an operating system scheduler.",
+        "Automatically fixing ambiguous schedules."
+      ],
+      "deliverable": [
+        "A runnable CLI with help text.",
+        "Fixtures covering valid input, invalid input, overlap, and timezone behavior."
+      ],
+      "open_questions": [
+        "Should a warning affect the exit code or only an error?",
+        "How much future should the tool inspect for overlap?",
+        "What should happen when a schedule omits its timezone?"
+      ]
+    }
+  },
+  "boundary": {
+    "accepted": true,
+    "accepted_at": "2026-10-28T04:03:07Z",
+    "scope": "mini-project",
+    "ai_authority": "case support and explicitly authorized mechanical work",
+    "protected_judgment_ids": [
+      "PJ-CRON-001"
+    ]
+  },
+  "mini_project": {
+    "case_id": "cron-doctor",
+    "category": "cli",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 2,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Build a CLI that explains when scheduled jobs run and warns about likely overlaps.",
+    "deliverable": "A CLI that reads a small schedule file and prints next runs, warnings, and actionable errors.",
+    "definition_of_done": [
+      "A valid schedule produces the next expected run times.",
+      "Malformed entries identify the entry and the reason they are invalid.",
+      "Potential overlapping jobs are visible with enough context to investigate.",
+      "Timezone behavior is stated and demonstrated.",
+      "The command exits with useful status codes for valid and invalid input."
+    ]
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-CRON-001",
+      "title": "CLI contract and errors",
+      "status": "open",
+      "first_attempt": null,
+      "revisions": [],
+      "closed_at": null
+    }
+  ],
+  "discovered_fact_ids": [
+    "F-CRON-001",
+    "F-CRON-002"
+  ],
+  "discovery_records": [],
+  "released_event_ids": [],
+  "event_release_records": [],
+  "assistance": [],
+  "evidence_requests": [],
+  "system_evidence": [],
+  "evidence_interpretations": [],
+  "delivery": {
+    "id": "DL-001",
+    "status": "not-started",
+    "summary": null,
+    "artifact_refs": [],
+    "completed_criteria": [],
+    "limitations": [],
+    "recorded_at": null
+  },
+  "assessment": {
+    "dimensions": [],
+    "result_summary": {
+      "independent": [],
+      "assisted": [],
+      "not_demonstrated": []
+    },
+    "gaps": [],
+    "outcome": null,
+    "limitations": [],
+    "disputes": [],
+    "next_action": null,
+    "accepted_by_human": false,
+    "accepted_at": null
+  },
+  "history": [
+    {
+      "at": "2026-10-28T03:59:23Z",
+      "type": "session-initialized",
+      "detail": "Mini-project loaded; boundary awaits human acceptance."
+    },
+    {
+      "at": "2026-10-28T04:03:07Z",
+      "type": "boundary-accepted",
+      "detail": "Human accepted the active competency and protected scope."
+    }
+  ]
+}
