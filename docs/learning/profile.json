@@ -18,11 +18,38 @@
     "independence": "unknown",
     "recorded_at": "2026-10-28T03:59:23Z"
   },
-  "competencies": [],
+  "competencies": [
+    {
+      "id": "COMP-CRON-001",
+      "name": "Thiết kế input contract và error semantics cho CLI",
+      "latest_outcome": "inconclusive",
+      "independence": "not-observed",
+      "last_session_id": "cron-doctor-001",
+      "updated_at": "2026-10-29T02:30:24Z"
+    }
+  ],
   "current_gaps": [],
-  "progress_history": [],
-  "active_session_id": "cron-doctor-001",
-  "next_action": null,
+  "progress_history": [
+    {
+      "session_id": "cron-doctor-001",
+      "competency_id": "COMP-CRON-001",
+      "outcome": "inconclusive",
+      "result_summary": {
+        "independent": [],
+        "assisted": [],
+        "not_demonstrated": [
+          "Cron Doctor was stopped before any work; nothing was assessed."
+        ]
+      },
+      "gaps": [],
+      "completed_at": "2026-10-29T02:30:24Z"
+    }
+  ],
+  "active_session_id": "paseo-live-activity-cards-001",
+  "next_action": {
+    "type": "change-competency",
+    "reason": "Learner chose a personal Paseo plugin (Live Activity Cards, Risk Radar, Attention Mode) as phase 1 instead of Cron Doctor."
+  },
   "cadence": "mini-project",
-  "updated_at": "2026-10-28T03:59:23Z"
+  "updated_at": "2026-10-29T02:32:23Z"
 }

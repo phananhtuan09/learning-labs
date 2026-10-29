@@ -4,9 +4,9 @@
   "case_id": "cron-doctor",
   "case_path": "docs/learning/cases/cron-doctor.json",
   "case_checksum": "61e4f67675418e360b92e6e61db1e112d6dbf76dfae32e7ed28b2991a3e3c8f5",
-  "status": "active",
+  "status": "completed",
   "started_at": "2026-10-28T03:59:23Z",
-  "updated_at": "2026-10-28T04:03:07Z",
+  "updated_at": "2026-10-29T02:30:24Z",
   "active_competency": {
     "id": "COMP-CRON-001",
     "name": "Thiết kế input contract và error semantics cho CLI",
@@ -105,10 +105,10 @@
     {
       "id": "PJ-CRON-001",
       "title": "CLI contract and errors",
-      "status": "open",
+      "status": "assessment-frozen",
       "first_attempt": null,
       "revisions": [],
-      "closed_at": null
+      "closed_at": "2026-10-29T02:30:24Z"
     }
   ],
   "discovered_fact_ids": [
@@ -124,27 +124,65 @@
   "evidence_interpretations": [],
   "delivery": {
     "id": "DL-001",
-    "status": "not-started",
-    "summary": null,
+    "status": "blocked",
+    "summary": "No delivery attempted; the learner switched to a different mini-project before starting.",
     "artifact_refs": [],
     "completed_criteria": [],
-    "limitations": [],
-    "recorded_at": null
+    "limitations": [
+      "Learner chose to replace Cron Doctor with a personal Paseo plugin project before any build work; no artifact exists."
+    ],
+    "recorded_at": "2026-10-29T02:30:24Z"
   },
   "assessment": {
-    "dimensions": [],
+    "dimensions": [
+      {
+        "id": "RUB-CRON-001",
+        "rating": "inconclusive",
+        "independence": "not-observed",
+        "evidence": [],
+        "limitation": "No attempt or delivery was made before the learner switched mini-projects."
+      },
+      {
+        "id": "RUB-CRON-002",
+        "rating": "inconclusive",
+        "independence": "not-observed",
+        "evidence": [],
+        "limitation": "No attempt or delivery was made before the learner switched mini-projects."
+      },
+      {
+        "id": "RUB-CRON-003",
+        "rating": "inconclusive",
+        "independence": "not-observed",
+        "evidence": [],
+        "limitation": "No attempt or delivery was made before the learner switched mini-projects."
+      },
+      {
+        "id": "RUB-CRON-004",
+        "rating": "inconclusive",
+        "independence": "not-observed",
+        "evidence": [],
+        "limitation": "No attempt or delivery was made before the learner switched mini-projects."
+      }
+    ],
     "result_summary": {
       "independent": [],
       "assisted": [],
-      "not_demonstrated": []
+      "not_demonstrated": [
+        "Cron Doctor was stopped before any work; nothing was assessed."
+      ]
     },
     "gaps": [],
-    "outcome": null,
-    "limitations": [],
+    "outcome": "inconclusive",
+    "limitations": [
+      "Session closed at learner request before Build; no evidence collected."
+    ],
     "disputes": [],
-    "next_action": null,
-    "accepted_by_human": false,
-    "accepted_at": null
+    "next_action": {
+      "type": "change-competency",
+      "reason": "Learner chose a personal Paseo plugin (Live Activity Cards, Risk Radar, Attention Mode) as phase 1 instead of Cron Doctor."
+    },
+    "accepted_by_human": true,
+    "accepted_at": "2026-10-29T02:30:24Z"
   },
   "history": [
     {
@@ -156,6 +194,27 @@
       "at": "2026-10-28T04:03:07Z",
       "type": "boundary-accepted",
       "detail": "Human accepted the active competency and protected scope."
+    },
+    {
+      "at": "2026-10-29T02:30:24Z",
+      "type": "deliverable-recorded",
+      "detail": "Recorded mini-project delivery as blocked."
+    },
+    {
+      "at": "2026-10-29T02:30:24Z",
+      "type": "assessment-frozen",
+      "detail": "Set PJ-CRON-001 to assessment-frozen."
+    },
+    {
+      "at": "2026-10-29T02:30:24Z",
+      "type": "assessment-proposed",
+      "detail": "Prepared an evidence-bound assessment for human review."
+    },
+    {
+      "at": "2026-10-29T02:30:24Z",
+      "type": "session-completed",
+      "detail": "Human accepted the assessment and progression recommendation."
     }
-  ]
+  ],
+  "completed_at": "2026-10-29T02:30:24Z"
 }

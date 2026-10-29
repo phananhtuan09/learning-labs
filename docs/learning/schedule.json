@@ -19,33 +19,41 @@
   "weeks": [
     {
       "week": 1,
-      "theme": "Make a CLI useful under real constraints",
+      "theme": "Make agent activity visible",
       "competency_focus": [
-        "input modeling",
-        "error semantics",
-        "operational usability"
+        "heterogeneous data normalization",
+        "live state display policy"
       ],
-      "project_focus": "Cron Doctor",
+      "project_focus": "Paseo plugin phase 1: Live Activity Cards",
       "mini_project_ids": [
-        "cron-doctor"
+        "paseo-live-activity-cards"
       ],
-      "target_duration_days": 2,
+      "target_duration_days": 3,
       "status": "in-progress",
-      "completed_session_ids": [],
-      "evidence_refs": [],
-      "adjustments": []
+      "completed_session_ids": [
+        "cron-doctor-001"
+      ],
+      "evidence_refs": [
+        "DL-001"
+      ],
+      "adjustments": [
+        {
+          "session_id": "cron-doctor-001",
+          "reason": "Learner chose a personal Paseo plugin (Live Activity Cards, Risk Radar, Attention Mode) as phase 1 instead of Cron Doctor.",
+          "recorded_at": "2026-10-29T02:30:24Z"
+        }
+      ]
     },
     {
       "week": 2,
-      "theme": "Ship a developer tool",
+      "theme": "Classify what deserves attention",
       "competency_focus": [
-        "spec clarification",
-        "boundary reasoning",
-        "delivery"
+        "classification rules",
+        "false positive versus missed risk tradeoff"
       ],
-      "project_focus": "Webhook Replay Inspector",
+      "project_focus": "Paseo plugin phase 1: Risk Radar",
       "mini_project_ids": [
-        "webhook-replay-inspector"
+        "paseo-risk-radar"
       ],
       "target_duration_days": 3,
       "status": "planned",
@@ -55,15 +63,14 @@
     },
     {
       "week": 3,
-      "theme": "Explore behavior with a failure tool",
+      "theme": "Decide what may interrupt the user",
       "competency_focus": [
-        "integration design",
-        "failure classification",
-        "evidence interpretation"
+        "attention policy",
+        "personal configuration design"
       ],
-      "project_focus": "API Chaos Proxy",
+      "project_focus": "Paseo plugin phase 1: Attention Mode",
       "mini_project_ids": [
-        "api-chaos-proxy"
+        "paseo-attention-mode"
       ],
       "target_duration_days": 3,
       "status": "planned",
@@ -90,5 +97,52 @@
       "adjustments": []
     }
   ],
-  "revision_history": []
+  "revision_history": [
+    {
+      "reason": "Learner replaced the season's non-web tool rotation with phase 1 of one personal Paseo plugin, split into three consecutive mini-projects that extend the same plugin.",
+      "effective_week": 1,
+      "updates": [
+        {
+          "week": 1,
+          "theme": "Make agent activity visible",
+          "competency_focus": [
+            "heterogeneous data normalization",
+            "live state display policy"
+          ],
+          "project_focus": "Paseo plugin phase 1: Live Activity Cards",
+          "mini_project_ids": [
+            "paseo-live-activity-cards"
+          ],
+          "target_duration_days": 3
+        },
+        {
+          "week": 2,
+          "theme": "Classify what deserves attention",
+          "competency_focus": [
+            "classification rules",
+            "false positive versus missed risk tradeoff"
+          ],
+          "project_focus": "Paseo plugin phase 1: Risk Radar",
+          "mini_project_ids": [
+            "paseo-risk-radar"
+          ],
+          "target_duration_days": 3
+        },
+        {
+          "week": 3,
+          "theme": "Decide what may interrupt the user",
+          "competency_focus": [
+            "attention policy",
+            "personal configuration design"
+          ],
+          "project_focus": "Paseo plugin phase 1: Attention Mode",
+          "mini_project_ids": [
+            "paseo-attention-mode"
+          ],
+          "target_duration_days": 3
+        }
+      ],
+      "accepted_at": "2026-10-29T02:32:23Z"
+    }
+  ]
 }

@@ -1,0 +1,293 @@
+{
+  "schema_version": "learning-case/v1",
+  "case_id": "paseo-live-activity-cards",
+  "title": "Paseo Live Activity Cards",
+  "domain": "developer-tools",
+  "difficulty": "intermediate",
+  "provenance": {
+    "kind": "composite",
+    "statement": "Personal Paseo plugin chosen by the learner, inspired by the public Beautiful Chat plugin (paseo.sh/plugins/aborakati/beautiful-chat). Platform facts come from the public Paseo plugin documentation; the plugin is phase 1 of a single plugin the learner will keep extending.",
+    "external_sources": [
+      "https://paseo.sh/plugins/aborakati/beautiful-chat",
+      "https://paseo.sh/docs/plugins.md",
+      "https://paseo.sh/docs/plugins/reference.md"
+    ]
+  },
+  "assumptions": [
+    "The learner is both the developer and the primary user of the plugin.",
+    "The plugin runs against the learner's local Paseo 0.13.x daemon with plugins already enabled.",
+    "Later mini-projects (risk badges, attention policy) extend this same plugin instead of creating new ones."
+  ],
+  "case_history": [
+    {
+      "version": 1,
+      "change": "Created a three-day personal Paseo plugin brief for live activity cards, with implied requirements derived from Paseo platform behavior and the three providers the learner uses."
+    }
+  ],
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "minimum_project_version": 1,
+    "schedule_weeks": [
+      1
+    ]
+  },
+  "mini_project": {
+    "id": "paseo-live-activity-cards",
+    "format": "mini-project",
+    "category": "developer-tool",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 3,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Build a personal Paseo plugin that renders agent activity as cards with activity icons and keeps the running work visible while the agent works.",
+    "stack": [
+      "TypeScript",
+      "React Native primitives",
+      "Paseo plugin SDK"
+    ],
+    "deliverable": "One installable Paseo plugin that replaces the default rendering of agent tool calls, reasoning, replies, and errors with personal-style activity cards for Claude Code, Codex, and OMP agents.",
+    "definition_of_done": [
+      "The plugin installs on the local daemon and reports running with no error.",
+      "Tool calls, reasoning, assistant replies, and errors render as plugin cards with an activity icon and a short label.",
+      "While an item is running, its card is open without any click; once finished it collapses to a one-line summary that can be reopened.",
+      "The same kind of activity looks the same whether the agent is Claude Code, Codex, or OMP.",
+      "The card style is the learner's own and is visibly different from both default Paseo and Beautiful Chat."
+    ],
+    "milestones": [
+      {
+        "day": 1,
+        "goal": "Observe how the three providers express activity and ship a first tool-call card.",
+        "scope": [
+          "scaffold the plugin",
+          "inspect timeline items from Claude Code, Codex, and OMP",
+          "activity types and icons",
+          "first tool-call card"
+        ]
+      },
+      {
+        "day": 2,
+        "goal": "Ship open-while-running behavior and cards for reasoning, replies, and errors.",
+        "scope": [
+          "open and collapse behavior",
+          "reasoning, reply, and error cards",
+          "one-line summaries"
+        ]
+      },
+      {
+        "day": 3,
+        "goal": "Finish the personal style and demonstrate the plugin on all three providers.",
+        "scope": [
+          "visual style",
+          "cross-provider check",
+          "demo"
+        ]
+      }
+    ]
+  },
+  "project_spec": {
+    "problem": "Paseo collapses tool and reasoning blocks by default, so while an agent works the user cannot see what it is doing without clicking, and Claude Code, Codex, and OMP each present their activity differently.",
+    "user": "The learner: a fullstack developer who runs Claude Code, Codex, and OMP agents in Paseo and wants to follow what each agent is doing at a glance.",
+    "functional_requirements": [
+      "Replace the default timeline rendering of tool calls, reasoning, assistant replies, and errors with plugin-rendered cards.",
+      "Each card shows an icon and a short label for the kind of activity, such as reading, editing, running a command, searching, or thinking.",
+      "A running item's card is open while it runs; a finished item collapses to a one-line summary the user can reopen.",
+      "The plugin works for agents from Claude Code, Codex, and OMP.",
+      "The cards use a personal visual style chosen by the learner."
+    ],
+    "acceptance_criteria": [
+      "During a live turn, the user can tell what the agent is doing right now without clicking anything.",
+      "A finished turn reads as a compact list of one-line summaries.",
+      "A collapsed summary says enough to decide whether it is worth opening, such as the command or file involved.",
+      "The same kind of activity uses the same icon and card shape across the three providers.",
+      "Removing or disabling the plugin returns Paseo to its default rendering."
+    ],
+    "constraints": [
+      "Build one Paseo plugin that later mini-projects extend; do not create a separate plugin per phase.",
+      "Use React Native primitives only, as required for Paseo plugin surfaces.",
+      "Set requirements.paseo to a range that includes the installed Paseo 0.13.x.",
+      "Beautiful Chat is inspiration only; do not copy its source code.",
+      "No remote service is required."
+    ],
+    "non_goals": [
+      "Classifying commands by risk.",
+      "A settings screen or user-configurable attention rules.",
+      "Syntax highlighting, image thumbnails, a find bar, or a selection toolbar.",
+      "Publishing the plugin to the Paseo registry."
+    ],
+    "deliverable": [
+      "A plugin folder that installs with paseo plugin install and reaches running.",
+      "A short demo showing a live turn and a finished turn on each of Claude Code, Codex, and OMP."
+    ],
+    "open_questions": [
+      "How should provider-specific tool names map onto a small set of activity types?",
+      "Should reasoning stay open while it streams, or only tool calls?",
+      "What should a collapsed summary contain for each activity type?"
+    ]
+  },
+  "active_competency": {
+    "id": "COMP-LIVE-CARDS-001",
+    "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
+    "description": "Gom output khác nhau của nhiều provider về một mô hình card nhỏ, rõ ràng, và quyết định cái gì hiển thị khi nào để người dùng theo dõi được agent mà không bị ngập thông tin."
+  },
+  "public_brief": {
+    "business_goal": "Giúp chính bạn theo dõi agent đang làm gì trong Paseo mà không phải bấm mở từng block.",
+    "current_context": [
+      "Paseo mặc định thu gọn block tool và reasoning.",
+      "Bạn dùng Claude Code, Codex và OMP trên Paseo 0.13.x chạy local.",
+      "Đây là phase 1 của một plugin duy nhất; các phase sau sẽ thêm risk badge và attention policy vào cùng plugin."
+    ],
+    "initial_question": "Hãy chọn mô hình card và chính sách mở/đóng card phù hợp với cách bạn theo dõi agent, rồi ship plugin chạy được trên cả ba provider trong ba buổi."
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-LIVE-CARDS-001",
+      "title": "Card model and open/collapse policy",
+      "prompt": "Chọn tập activity type và cách map item của Claude Code, Codex, OMP vào đó, cùng chính sách khi nào card mở, khi nào thu gọn và collapsed summary chứa gì.",
+      "required_observations": [
+        "Tập activity type nhỏ, có lý do, và map được item của cả ba provider.",
+        "Có chiến lược cho item không khớp mapping thay vì giả định mapping đủ.",
+        "Chính sách mở/đóng được giải thích bằng tình huống theo dõi agent cụ thể, kể cả khi output dài hoặc nhiều item chạy cùng lúc."
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F-LIVE-CARDS-001",
+      "visibility": "public",
+      "statement": "Paseo mặc định thu gọn block tool call và reasoning trong timeline.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-LIVE-CARDS-002",
+      "visibility": "public",
+      "statement": "Plugin chạy trên daemon Paseo 0.13.x local với các agent Claude Code, Codex và OMP.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-LIVE-CARDS-003",
+      "visibility": "public",
+      "statement": "Các phase sau (risk badge, attention policy) sẽ mở rộng chính plugin này.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-LIVE-CARDS-004",
+      "visibility": "discoverable",
+      "statement": "Provider thêm tool mới qua các bản cập nhật, và MCP server có thể đưa vào tool với tên tùy ý; OMP có bộ tool riêng khác Claude Code và Codex.",
+      "discovery_paths": [
+        "Hỏi những tool nào có thể xuất hiện trong timeline",
+        "Hỏi chuyện gì xảy ra với tool chưa được map hoặc tool từ MCP server"
+      ]
+    },
+    {
+      "id": "F-LIVE-CARDS-005",
+      "visibility": "discoverable",
+      "statement": "Agent thường chạy test suite, build hoặc đọc file lớn; output của một tool call có thể dài hàng nghìn dòng và tiếp tục stream trong lúc chạy.",
+      "discovery_paths": [
+        "Hỏi output của tool call dài cỡ nào",
+        "Hỏi agent thường chạy những lệnh gì"
+      ]
+    },
+    {
+      "id": "F-LIVE-CARDS-006",
+      "visibility": "discoverable",
+      "statement": "Paseo có nhiều theme sáng và tối; text trong plugin không lấy màu từ theme sẽ hiển thị màu đen và không đọc được trên theme tối.",
+      "discovery_paths": [
+        "Hỏi về theme hoặc màu sắc của Paseo",
+        "Hỏi style cá nhân cần tương thích với gì"
+      ]
+    },
+    {
+      "id": "F-LIVE-CARDS-007",
+      "visibility": "discoverable",
+      "statement": "Agent thường gọi nhiều tool song song trong cùng một bước, ví dụ đọc 5 đến 10 file cùng lúc.",
+      "discovery_paths": [
+        "Hỏi agent có chạy nhiều tool cùng lúc không",
+        "Hỏi một turn thường có bao nhiêu tool call"
+      ]
+    }
+  ],
+  "future_events": [
+    {
+      "id": "EV-LIVE-CARDS-001",
+      "kind": "counterexample",
+      "trigger": "Sau khi learner có card chạy được trên cả ba provider và đã chốt chính sách mở/đóng card.",
+      "statement": "Trong một turn, Claude Code gọi 8 lệnh đọc file song song trong cùng một giây; các card cùng mở rồi cùng đóng, câu trả lời nhảy lên xuống và người dùng mất dấu agent đang làm gì.",
+      "purpose": "Kiểm tra chính sách mở/đóng với burst song song mà không thay đổi ngầm hành vi của các loại card khác."
+    }
+  ],
+  "rubric": [
+    {
+      "id": "RUB-LIVE-CARDS-001",
+      "name": "Card model",
+      "required_judgment_ids": [
+        "PJ-LIVE-CARDS-001"
+      ],
+      "observable_signals": [
+        "Tập activity type nhỏ, nhất quán và map được item của ba provider.",
+        "Có hành vi rõ ràng cho item không khớp mapping."
+      ]
+    },
+    {
+      "id": "RUB-LIVE-CARDS-002",
+      "name": "Open/collapse policy",
+      "required_judgment_ids": [
+        "PJ-LIVE-CARDS-001"
+      ],
+      "observable_signals": [
+        "Người dùng thấy agent đang làm gì trong live turn mà không cần bấm.",
+        "Chính sách được giải thích bằng tình huống và giữ ổn định khi gặp counterexample."
+      ]
+    },
+    {
+      "id": "RUB-LIVE-CARDS-003",
+      "name": "Product understanding",
+      "required_judgment_ids": [],
+      "required_implied_requirement_ids": [
+        "IR-LIVE-CARDS-001",
+        "IR-LIVE-CARDS-002",
+        "IR-LIVE-CARDS-003"
+      ],
+      "observable_signals": [
+        "Tool lạ vẫn hiển thị đọc được.",
+        "Output dài không làm timeline mất khả năng sử dụng.",
+        "Card đọc được trên theme sáng và tối."
+      ]
+    }
+  ],
+  "transfer": {
+    "prompt": "Áp dụng cách chuẩn hóa nguồn dữ liệu không đồng nhất và chính sách hiển thị live sang một dashboard theo dõi CI job từ nhiều hệ thống CI khác nhau.",
+    "same_principle": "Một UI model nhỏ có fallback cho dữ liệu lạ, và chính sách hiển thị trạng thái live dựa trên điều người dùng cần theo dõi."
+  },
+  "implied_requirements": [
+    {
+      "id": "IR-LIVE-CARDS-001",
+      "kind": "functional",
+      "statement": "A tool call whose name or shape the plugin has not mapped still renders as a readable generic card showing its name and status, instead of a blank row, a broken card, or an error.",
+      "derived_from": "Public requirement to support three providers whose activity is presented differently, and the plugin will be used daily as providers update.",
+      "fact_ids": [
+        "F-LIVE-CARDS-004"
+      ],
+      "check": "Trigger a tool call the mapping does not cover, such as an MCP tool or an uncommon provider tool; it renders as a readable card with its tool name and status, and nothing in the timeline breaks."
+    },
+    {
+      "id": "IR-LIVE-CARDS-002",
+      "kind": "non-functional",
+      "statement": "A running card with very long or continuously streaming output stays bounded so the rest of the timeline and the latest activity remain visible.",
+      "derived_from": "Public requirement that running cards stay open so the user can follow what the agent is doing right now.",
+      "fact_ids": [
+        "F-LIVE-CARDS-005"
+      ],
+      "check": "Have an agent run a command that prints at least 2000 lines; while it runs the open card does not push the rest of the turn out of reach, and the timeline stays responsive."
+    },
+    {
+      "id": "IR-LIVE-CARDS-003",
+      "kind": "non-functional",
+      "statement": "All card text and icons remain readable on both a light and a dark Paseo theme.",
+      "derived_from": "Public requirement for a personal visual style inside the Paseo app, which ships several themes.",
+      "fact_ids": [
+        "F-LIVE-CARDS-006"
+      ],
+      "check": "Switch between a light and a dark Paseo theme with cards visible; every label, summary, and icon stays legible in both."
+    }
+  ]
+}
