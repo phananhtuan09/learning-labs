@@ -4,9 +4,9 @@
   "case_id": "paseo-live-activity-cards",
   "case_path": "docs/learning/cases/paseo-live-activity-cards.json",
   "case_checksum": "923d4a5ac4d26c45e4b2aa1927dc9aeca8782fc905ac32e356147cbfad86c8e1",
-  "status": "active",
+  "status": "assessment",
   "started_at": "2026-10-29T02:32:23Z",
-  "updated_at": "2026-10-29T02:34:17Z",
+  "updated_at": "2026-11-06T02:07:41Z",
   "active_competency": {
     "id": "COMP-LIVE-CARDS-001",
     "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
@@ -106,10 +106,35 @@
     {
       "id": "PJ-LIVE-CARDS-001",
       "title": "Card model and open/collapse policy",
-      "status": "open",
-      "first_attempt": null,
+      "status": "assessment-frozen",
+      "first_attempt": {
+        "id": "AT-001",
+        "summary": "Learner reports that the AI coding agent chose the card model and open/collapse policy; the learner approved the Flow direction (mockup, 2026-11-04) and chose one chip per row for Brief after the spike showed Paseo adds 16px under every plugin item.",
+        "reasoning": "Submitted explanation (written by the learner's AI agent, third person): 10 activities (read, edit, write, run, search, web, delegate, plan, tool, think) with three phases; classification by Paseo-normalized detail.type so one mapping serves all providers, with a Claude-style tool-name table as fallback for detail.type unknown. Open/collapse: user-chosen detail level Brief/Steps/Full shared by all agents; bodies closed in Brief and Steps, open in Full; per-step tap overrides until the level changes; running state shown by chip/row style, spinner, elapsed time and a composer follow pill rather than by opening the body. Collapsed summary: icon, verb label, target (short path, first command line, or query), meta (+X -Y, N lines, exit N, HTTP code), status. Thresholds were picked as reasonable numbers without measurement.",
+        "assumptions": [
+          "Unmapped tools (detail.type unknown or plain_text) render as a generic Calling/Called step; MCP tools show server and function; classifier errors fall back to Paseo default rendering.",
+          "OMP works only if Paseo normalizes its tools to the same detail.type values; not checked.",
+          "Hiding task_notification is a guess because it is unknown whether default Paseo shows it.",
+          "Product lens - helps: the learner, running Claude Code, Codex and OMP agents on local Paseo.",
+          "Product lens - success: while an agent runs the user knows what it is doing without clicking, every step has an icon and label, failed steps are visible at once, disabling the plugin restores the default; no real-usage measure yet."
+        ],
+        "constraints": [],
+        "invariants": [],
+        "risks": [
+          "Codex handling and its tests were not written or run by the agent that wrote the submission; who wrote it and whether Codex ran for real is unconfirmed.",
+          "Reasoning steps, Codex and OMP not verified at runtime; E2E ran before the final Codex and pill commits."
+        ],
+        "predictions": [],
+        "tradeoffs": [
+          "Brief renders one chip per step instead of one merged line per segment, because empty plugin items still take 16px.",
+          "Product lens - deliberately out of scope: scrolling the timeline to the running step from the pill, because the plugin SDK has no scroll API.",
+          "Fixed blue/amber/violet phase palette with light and dark variants instead of only theme colors, because the theme accent can be green and cannot separate phases."
+        ],
+        "independent": true,
+        "recorded_at": "2026-11-06T02:05:06Z"
+      },
       "revisions": [],
-      "closed_at": null
+      "closed_at": "2026-11-06T02:07:07Z"
     }
   ],
   "discovered_fact_ids": [
@@ -120,31 +145,140 @@
   "discovery_records": [],
   "released_event_ids": [],
   "event_release_records": [],
-  "assistance": [],
+  "assistance": [
+    {
+      "id": "AS-001",
+      "judgment_id": "PJ-LIVE-CARDS-001",
+      "level": 5,
+      "kind": "external-help-self-reported",
+      "content": "Before submission, the learner's AI coding agent (Claude) chose the activity set, mapping, open/collapse policy, collapsed-summary content and thresholds, and wrote the plan, observed notes, mockup, most code and the submission explanation, after the learner said to let it decide. The learner approved the Flow direction and chose one chip per row for Brief.",
+      "material": true,
+      "material_reason": "The protected judgment itself was delegated to an AI agent before the first attempt.",
+      "before_first_attempt": false,
+      "judgment_status_before": "first-attempt-recorded",
+      "impact": "The recorded first attempt describes an AI-chosen design; it cannot count as independent evidence of the learner's judgment.",
+      "recorded_at": "2026-11-06T02:05:06Z"
+    },
+    {
+      "id": "AS-002",
+      "judgment_id": "PJ-LIVE-CARDS-001",
+      "level": 1,
+      "kind": "neutral-question",
+      "content": "Scenario: an agent runs npm test for three minutes while you are at the default Brief level. What do you see in the timeline during those three minutes, and is that enough for you to decide whether to stop the agent?",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": false,
+      "judgment_status_before": "assisted",
+      "impact": "Asks the learner to test the open/collapse policy against a long-running step without suggesting a policy.",
+      "recorded_at": "2026-11-06T02:05:07Z"
+    },
+    {
+      "id": "AS-003",
+      "judgment_id": "PJ-LIVE-CARDS-001",
+      "level": 1,
+      "kind": "neutral-question",
+      "content": "Counterexample: an OMP agent reads a file with its own read tool and Paseo reports it as detail.type unknown. What step does your plugin show, and is that the same as when Claude Code reads a file?",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": false,
+      "judgment_status_before": "assisted",
+      "impact": "Asks the learner to check the mapping against a provider-specific tool without stating the expected mapping.",
+      "recorded_at": "2026-11-06T02:05:07Z"
+    }
+  ],
   "evidence_requests": [],
   "system_evidence": [],
   "evidence_interpretations": [],
   "delivery": {
     "id": "DL-001",
-    "status": "not-started",
-    "summary": null,
-    "artifact_refs": [],
-    "completed_criteria": [],
-    "limitations": [],
-    "recorded_at": null
+    "status": "in-progress",
+    "summary": "Plugin agent-activity installs and runs on the learner's Paseo 0.15.0 daemon with no error; typecheck passes and 53 unit tests pass. Tool calls and reasoning render as activity steps with icon and verb label at Brief/Steps/Full levels plus two composer pills. Learner-provided E2E evidence (isolated daemon, Claude Haiku 5.5, dark and light, desktop and compact) shows Brief chips, Steps rows with run headers and phase labels, Full bodies and default rendering when disabled.",
+    "artifact_refs": [
+      "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/agent-activity@ff1c67ac563affd27a1ec48a01d8fecf1dc30954",
+      "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/docs/testing/evidence/agent-activity@ff1c67ac563affd27a1ec48a01d8fecf1dc30954"
+    ],
+    "completed_criteria": [
+      "The plugin installs on the local daemon and reports running with no error.",
+      "The card style is the learner's own and is visibly different from both default Paseo and Beautiful Chat."
+    ],
+    "limitations": [
+      "Assistant replies and turn errors keep Paseo default rendering, so the criterion that replies and errors render as plugin cards is not met.",
+      "A running step's body is not open without a click at the default Brief or Steps level; the step header shows a spinner and elapsed time, and the body opens only at Full or on tap. The open-while-running criterion is replaced by a user-chosen detail level.",
+      "Cross-provider consistency is shown only for Claude Code; Codex handling exists in code and unit tests but no Codex or OMP runtime demo was submitted.",
+      "Reasoning steps not observed at runtime; E2E evidence predates the final Codex and pill commits and was not re-run by the reviewer.",
+      "Syntax highlighting, a listed non-goal, was added.",
+      "Implied-requirement checks are based on code, unit tests and screenshots: unknown and MCP tools render as a generic named step; running output is bounded to the last 12 lines and done output to the first 40 lines with an 8 KB field cap (no 2000-line runtime run); dark and light screenshots are legible with per-brightness palette variants.",
+      "The submission explanation, plan and observed notes were written by the learner's AI agent and are not counted as the learner's reasoning."
+    ],
+    "recorded_at": "2026-11-06T02:05:07Z"
   },
   "assessment": {
-    "dimensions": [],
+    "dimensions": [
+      {
+        "id": "RUB-LIVE-CARDS-001",
+        "rating": "inconclusive",
+        "independence": "assisted",
+        "evidence": [
+          "AT-001",
+          "AS-001",
+          "DL-001"
+        ],
+        "limitation": "The shipped model (10 activities, detail.type mapping, generic fallback) was chosen by the learner's AI agent; no learner reasoning about the activity set or mapping was observed, and the OMP counterexample question was not answered."
+      },
+      {
+        "id": "RUB-LIVE-CARDS-002",
+        "rating": "not-demonstrated",
+        "independence": "assisted",
+        "evidence": [
+          "AT-001",
+          "AS-001",
+          "AS-002",
+          "DL-001"
+        ],
+        "limitation": "The AI-chosen policy keeps running step bodies closed at the default levels, unlike the accepted criterion; the learner skipped the chance to defend or revise it, and no scenario-based explanation (long output, parallel calls) came from the learner."
+      },
+      {
+        "id": "RUB-LIVE-CARDS-003",
+        "rating": "demonstrated",
+        "independence": "assisted",
+        "evidence": [
+          "AS-001",
+          "DL-001"
+        ],
+        "limitation": "All three implied requirements are handled in the artifact before feedback (generic named step for unknown and MCP tools, bounded running and finished output, light and dark palette variants), but by the AI agent; the 2000-line output check is supported by code and unit tests only, not a runtime run."
+      }
+    ],
     "result_summary": {
-      "independent": [],
-      "assisted": [],
-      "not_demonstrated": []
+      "independent": [
+        "Chose one chip per row for Brief after the spike showed every plugin item takes 16px even when empty."
+      ],
+      "assisted": [
+        "Shipped an installable, running plugin with icon-and-label activity steps, three detail levels and a follow pill.",
+        "Unknown and MCP tools render as a readable named step; long output stays bounded; steps stay legible on light and dark themes."
+      ],
+      "not_demonstrated": [
+        "The learner's own reasoning for the activity set, provider mapping and open/collapse policy.",
+        "Open-while-running cards and plugin cards for replies and errors, as in the definition of done.",
+        "Consistent behavior on Codex and OMP at runtime."
+      ]
     },
-    "gaps": [],
-    "outcome": null,
-    "limitations": [],
+    "gaps": [
+      "learning-evidence-gap: the owned decision (card model and open/collapse policy) was delegated to the AI agent instead of being decided by the learner and stated in the task.",
+      "reasoning-gap: divergence from the accepted spec (detail level instead of open-while-running, replies and errors left on default rendering, syntax highlighting added) was not reconciled as an explicit scope decision.",
+      "system-evidence-gap: cross-provider behavior is claimed but only Claude Code was demonstrated; Codex and OMP were not run."
+    ],
+    "outcome": "inconclusive",
+    "limitations": [
+      "The submission explanation, plan and observed notes were written by the learner's AI agent and were not counted as the learner's reasoning.",
+      "Who wrote the Codex handling and whether Codex was run is unconfirmed.",
+      "The reviewer ran typecheck, unit tests and plugin status, and read the submitted screenshots; E2E was not re-run after the final commits.",
+      "The parallel-burst twist was not released because the plugin was not shown on all three providers."
+    ],
     "disputes": [],
-    "next_action": null,
+    "next_action": {
+      "type": "retry-similar",
+      "reason": "The artifact works, but there is no learner-owned evidence for the core judgment; a short extension of the same plugin where the learner writes the open/collapse decision before delegating code would produce that evidence."
+    },
     "accepted_by_human": false,
     "accepted_at": null
   },
@@ -158,6 +292,41 @@
       "at": "2026-10-29T02:34:17Z",
       "type": "boundary-accepted",
       "detail": "Human accepted the active competency and protected scope."
+    },
+    {
+      "at": "2026-11-06T02:05:06Z",
+      "type": "first-attempt-recorded",
+      "detail": "Recorded independent attempt for PJ-LIVE-CARDS-001."
+    },
+    {
+      "at": "2026-11-06T02:05:06Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 5 assistance for PJ-LIVE-CARDS-001."
+    },
+    {
+      "at": "2026-11-06T02:05:07Z",
+      "type": "deliverable-recorded",
+      "detail": "Recorded mini-project delivery as in-progress."
+    },
+    {
+      "at": "2026-11-06T02:05:07Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 1 assistance for PJ-LIVE-CARDS-001."
+    },
+    {
+      "at": "2026-11-06T02:05:07Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 1 assistance for PJ-LIVE-CARDS-001."
+    },
+    {
+      "at": "2026-11-06T02:07:07Z",
+      "type": "assessment-frozen",
+      "detail": "Set PJ-LIVE-CARDS-001 to assessment-frozen."
+    },
+    {
+      "at": "2026-11-06T02:07:41Z",
+      "type": "assessment-proposed",
+      "detail": "Prepared an evidence-bound assessment for human review."
     }
   ]
 }
