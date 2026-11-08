@@ -1,0 +1,250 @@
+{
+  "schema_version": "learning-case/v1",
+  "case_id": "paseo-running-step-policy",
+  "title": "Paseo Running Step Policy",
+  "domain": "developer-tools",
+  "difficulty": "intermediate",
+  "provenance": {
+    "kind": "composite",
+    "statement": "Retry-similar extension of the learner's own agent-activity Paseo plugin after the Live Activity Cards session. Platform facts come from the public Paseo plugin documentation and the learner's shipped plugin; scenarios are simulated from common Claude Code agent behavior.",
+    "external_sources": [
+      "https://paseo.sh/docs/plugins.md",
+      "https://paseo.sh/docs/plugins/reference.md"
+    ]
+  },
+  "assumptions": [
+    "The learner is both the developer and the primary user of the plugin.",
+    "The plugin already ships Brief, Steps and Full detail levels; Full opens running bodies, Brief and Steps keep them collapsed.",
+    "Scope follows the learner's decision after the previous session: Claude Code only, assistant replies and errors keep Paseo default rendering.",
+    "The plugin runs on the learner's local Paseo 0.15.x daemon."
+  ],
+  "case_history": [
+    {
+      "version": 1,
+      "change": "Created a two-day retry-similar brief on the running-step display policy at Brief and Steps, with implied requirements derived from parallel tool calls and agent interruption."
+    },
+    {
+      "version": 2,
+      "change": "Before any session bound the case, accepted a decision record or plan as the written policy format at the learner's request."
+    }
+  ],
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "minimum_project_version": 1,
+    "schedule_weeks": [
+      1
+    ]
+  },
+  "mini_project": {
+    "id": "paseo-running-step-policy",
+    "format": "mini-project",
+    "category": "developer-tool",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 2,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Decide and ship what a running step shows at Brief and Steps so you can tell, without opening anything, whether the agent is making progress or should be stopped.",
+    "stack": [
+      "TypeScript",
+      "React Native primitives",
+      "Paseo plugin SDK"
+    ],
+    "deliverable": "An update to the existing agent-activity plugin that implements the learner's written running-step policy at Brief and Steps for Claude Code agents.",
+    "definition_of_done": [
+      "A short running-step policy, decision record, or plan written by the learner in their own words exists in the plugin folder, states what the user sees in each named scenario and why, and was committed before any coding agent implemented it.",
+      "At Brief and Steps, a running step shows the live signals the policy defines without any click.",
+      "A step that finishes, fails, or is stopped changes to its final state as the policy defines, and the final state is distinguishable at a glance.",
+      "Full keeps its current behavior, and disabling the plugin still returns Paseo to its default rendering.",
+      "The plugin installs on the local daemon and reports running with no error."
+    ],
+    "milestones": [
+      {
+        "day": 1,
+        "goal": "Write the running-step policy from concrete scenarios and check what Paseo reports while a tool runs.",
+        "scope": [
+          "list the scenarios you care about",
+          "observe running tool updates from Claude Code",
+          "write the policy before delegating code"
+        ]
+      },
+      {
+        "day": 2,
+        "goal": "Ship the policy at Brief and Steps and demo it on your scenarios.",
+        "scope": [
+          "implement the policy",
+          "demo each scenario on Claude Code",
+          "submission"
+        ]
+      }
+    ]
+  },
+  "project_spec": {
+    "problem": "At Brief and Steps a running step shows only its chip with a spinner and elapsed time, so during a long command the user cannot tell whether the agent is making progress or is stuck, and the only way to see more is to open the body or switch to Full.",
+    "user": "The learner: a fullstack developer who mainly runs Claude Code agents in Paseo at Brief to skim, and needs to decide quickly whether to let an agent continue or stop it.",
+    "functional_requirements": [
+      "Define what a running step shows at Brief and at Steps, including how it signals that work is progressing.",
+      "Define how a running step changes when it finishes, fails, is stopped, or runs much longer than usual.",
+      "Implement that policy in the existing plugin for Claude Code agents without changing Full."
+    ],
+    "acceptance_criteria": [
+      "While a command runs for several minutes at Brief, the user can tell without clicking whether it is still producing output.",
+      "A failed step can be spotted at Brief without reading its body.",
+      "A finished turn at Brief still reads as a compact, skimmable list.",
+      "The written policy, decision record, or plan names the scenarios it was checked against and what the user sees in each."
+    ],
+    "constraints": [
+      "Extend the existing agent-activity plugin; do not create a new plugin.",
+      "Write the running-step policy yourself, as a policy note, decision record, or plan that states what the user sees and why, before giving the implementation to a coding agent; state it in the task so the agent implements it instead of choosing it.",
+      "Use React Native primitives only, as required for Paseo plugin surfaces.",
+      "Keep requirements.paseo compatible with the installed Paseo 0.15.x.",
+      "No remote service is required."
+    ],
+    "non_goals": [
+      "Codex or OMP support.",
+      "Cards for assistant replies or errors.",
+      "Classifying commands by risk.",
+      "Notifications, sounds, or rules for interrupting the user.",
+      "Scrolling the timeline to the running step.",
+      "A settings screen beyond the existing detail levels."
+    ],
+    "deliverable": [
+      "A commit in the plugin repository with the learner-written policy, decision record, or plan and its implementation.",
+      "A short demo on Claude Code of each scenario named in the policy at Brief and Steps."
+    ],
+    "open_questions": [
+      "What tells you a running step is progressing rather than stuck?",
+      "Should Brief and Steps show running work differently, and why?",
+      "When does a step count as running unusually long?"
+    ]
+  },
+  "active_competency": {
+    "id": "COMP-LIVE-CARDS-001",
+    "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
+    "description": "Gom output khác nhau của nhiều provider về một mô hình card nhỏ, rõ ràng, và quyết định cái gì hiển thị khi nào để người dùng theo dõi được agent mà không bị ngập thông tin."
+  },
+  "public_brief": {
+    "business_goal": "Giúp chính bạn quyết định nhanh nên để agent chạy tiếp hay dừng nó, trong khi vẫn đọc lướt ở chế độ Brief.",
+    "current_context": [
+      "Plugin agent-activity đã có ba mức Brief, Steps, Full; Full mở body khi đang chạy, Brief và Steps giữ thu gọn với spinner và thời gian chạy.",
+      "Bạn chủ yếu dùng Claude Code trên Paseo 0.15.x chạy local.",
+      "Câu trả lời và lỗi của turn giữ cách hiển thị mặc định của Paseo."
+    ],
+    "initial_question": "Hãy tự viết chính sách hiển thị bước đang chạy ở Brief và Steps dựa trên các tình huống cụ thể, rồi ship nó trong hai buổi."
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-RUN-POLICY-001",
+      "title": "Running-step display policy at Brief and Steps",
+      "prompt": "Chọn bước đang chạy hiển thị gì ở Brief và Steps, cách báo hiệu đang tiến triển hay im lặng, ngưỡng chạy lâu bất thường, và trạng thái cuối khi xong, lỗi hoặc bị dừng.",
+      "required_observations": [
+        "Chính sách được viết trước khi giao code và kiểm bằng tình huống cụ thể, kể cả lệnh chạy lâu.",
+        "Phân biệt được bước đang có output, bước im lặng và bước đã kết thúc.",
+        "Giữ được tính đọc lướt của Brief và có lý do cho khác biệt giữa Brief và Steps."
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F-RUN-POLICY-001",
+      "visibility": "public",
+      "statement": "Ở Brief và Steps, bước đang chạy hiện chip hoặc dòng có spinner và thời gian chạy; body chỉ mở ở Full hoặc khi bấm.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-RUN-POLICY-002",
+      "visibility": "public",
+      "statement": "Agent thường chạy test suite, build hoặc cài dependency kéo dài vài phút, và output có thể tiếp tục stream trong lúc chạy.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-RUN-POLICY-003",
+      "visibility": "discoverable",
+      "statement": "Claude Code thường gọi nhiều tool song song trong cùng một bước, ví dụ đọc 5 đến 10 file cùng lúc, và chúng kết thúc lệch nhau trong vòng vài trăm mili giây.",
+      "discovery_paths": [
+        "Hỏi agent có chạy nhiều tool cùng lúc không",
+        "Hỏi một bước thường có bao nhiêu tool call đang chạy"
+      ]
+    },
+    {
+      "id": "F-RUN-POLICY-004",
+      "visibility": "discoverable",
+      "statement": "Bạn thường bấm stop agent giữa chừng; khi đó tool đang chạy kết thúc mà không có kết quả hay exit code.",
+      "discovery_paths": [
+        "Hỏi chuyện gì xảy ra khi dừng agent giữa lúc tool đang chạy",
+        "Hỏi một bước có thể kết thúc theo những cách nào"
+      ]
+    }
+  ],
+  "future_events": [
+    {
+      "id": "EV-RUN-POLICY-001",
+      "kind": "counterexample",
+      "trigger": "Sau khi learner đã nộp chính sách viết tay và demo hành vi bước đang chạy lâu ở Brief.",
+      "statement": "Agent chạy một lệnh git cần nhập passphrase; lệnh không in gì thêm và chờ input vô thời hạn trong khi spinner và thời gian chạy vẫn tăng như một lệnh build bình thường.",
+      "purpose": "Kiểm tra chính sách có phân biệt được bước im lặng hoặc bị treo với bước đang tiến triển mà không đổi ngầm hành vi của bước khác."
+    }
+  ],
+  "rubric": [
+    {
+      "id": "RUB-RUN-POLICY-001",
+      "name": "Scenario-grounded running policy",
+      "required_judgment_ids": [
+        "PJ-RUN-POLICY-001"
+      ],
+      "observable_signals": [
+        "Chính sách do learner viết trước khi giao code và gắn với tình huống cụ thể.",
+        "Lý do cho khác biệt giữa Brief và Steps và cho ngưỡng chạy lâu."
+      ]
+    },
+    {
+      "id": "RUB-RUN-POLICY-002",
+      "name": "Policy robustness",
+      "required_judgment_ids": [
+        "PJ-RUN-POLICY-001"
+      ],
+      "observable_signals": [
+        "Phân biệt được đang có output, im lặng và đã kết thúc.",
+        "Chính sách giữ ổn định hoặc được sửa có lý do khi gặp counterexample."
+      ]
+    },
+    {
+      "id": "RUB-RUN-POLICY-003",
+      "name": "Product understanding",
+      "required_judgment_ids": [],
+      "required_implied_requirement_ids": [
+        "IR-RUN-POLICY-001",
+        "IR-RUN-POLICY-002"
+      ],
+      "observable_signals": [
+        "Nhiều tool chạy song song không làm Brief nhảy layout.",
+        "Bước bị dừng không quay spinner mãi."
+      ]
+    }
+  ],
+  "transfer": {
+    "prompt": "Áp dụng cách thiết kế chính sách hiển thị trạng thái đang chạy sang thanh tiến trình của một CLI deploy, nơi người dùng cần biết bước nào đang tiến triển, im lặng hay đã treo.",
+    "same_principle": "Trạng thái live phải giúp người dùng ra quyết định tiếp tục hay dừng, và được kiểm bằng tình huống cụ thể trước khi chọn."
+  },
+  "implied_requirements": [
+    {
+      "id": "IR-RUN-POLICY-001",
+      "kind": "non-functional",
+      "statement": "When several tool calls run in parallel in one step, the Brief and Steps display stays stable: rows do not jump or reorder as they finish at slightly different times, and the user can still tell how many are running.",
+      "derived_from": "Public goal of skimming at Brief while deciding whether to stop the agent, and Claude Code's common parallel tool calls.",
+      "fact_ids": [
+        "F-RUN-POLICY-003"
+      ],
+      "check": "Have Claude Code read at least 6 files in one step at Brief and Steps; the running display does not jump or reorder while they finish, and the count or set of running items stays readable."
+    },
+    {
+      "id": "IR-RUN-POLICY-002",
+      "kind": "functional",
+      "statement": "A step whose agent is stopped mid-run leaves the running state and shows a distinct stopped state instead of spinning forever or looking like a success.",
+      "derived_from": "Public goal of deciding whether to stop the agent; the stop action is the direct follow-up of that decision.",
+      "fact_ids": [
+        "F-RUN-POLICY-004"
+      ],
+      "check": "Stop a Claude Code agent while a long command runs; the step stops spinning and shows a state distinguishable from both success and failure at Brief."
+    }
+  ]
+}

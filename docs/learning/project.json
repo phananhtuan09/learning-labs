@@ -4,7 +4,7 @@
   "title": "Mini Product Lab",
   "status": "active",
   "accepted_at": "2026-10-28T03:58:50Z",
-  "version": 1,
+  "version": 2,
   "domain": {
     "name": "developer-and-ops-tools",
     "summary": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions."
@@ -53,9 +53,17 @@
     "A passing implementation does not by itself prove that the learner understands the design."
   ],
   "current_state": {
-    "accepted_decisions": [],
-    "delivered_capabilities": [],
-    "active_constraints": []
+    "accepted_decisions": [
+      "The agent-activity plugin targets Claude Code only; Codex and OMP are out of scope.",
+      "Assistant replies and turn errors keep Paseo default rendering because cards take too much space for long reading sessions.",
+      "The plugin offers Brief, Steps and Full detail levels; only Full opens running bodies automatically."
+    ],
+    "delivered_capabilities": [
+      "Installable agent-activity Paseo plugin rendering tool calls and reasoning as icon-and-label activity steps at three detail levels."
+    ],
+    "active_constraints": [
+      "Later phases extend the same agent-activity plugin on the learner's local Paseo 0.15.x."
+    ]
   },
   "evolution_history": [
     {
@@ -66,6 +74,23 @@
       "delivered_capabilities": [],
       "active_constraints": [],
       "accepted_at": "2026-10-28T03:58:50Z"
+    },
+    {
+      "version": 2,
+      "session_id": "paseo-live-activity-cards-001",
+      "summary": "Accepted the learner's scope decisions for the agent-activity Paseo plugin.",
+      "decisions": [
+        "The agent-activity plugin targets Claude Code only; Codex and OMP are out of scope.",
+        "Assistant replies and turn errors keep Paseo default rendering because cards take too much space for long reading sessions.",
+        "The plugin offers Brief, Steps and Full detail levels; only Full opens running bodies automatically."
+      ],
+      "delivered_capabilities": [
+        "Installable agent-activity Paseo plugin rendering tool calls and reasoning as icon-and-label activity steps at three detail levels."
+      ],
+      "active_constraints": [
+        "Later phases extend the same agent-activity plugin on the learner's local Paseo 0.15.x."
+      ],
+      "accepted_at": "2026-11-08T06:06:42Z"
     }
   ]
 }

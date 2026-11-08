@@ -24,23 +24,34 @@
         "heterogeneous data normalization",
         "live state display policy"
       ],
-      "project_focus": "Paseo plugin phase 1: Live Activity Cards",
+      "project_focus": "Paseo plugin phase 1: Live Activity Cards, then running-step policy retry",
       "mini_project_ids": [
-        "paseo-live-activity-cards"
+        "paseo-live-activity-cards",
+        "paseo-running-step-policy"
       ],
       "target_duration_days": 3,
       "status": "in-progress",
       "completed_session_ids": [
-        "cron-doctor-001"
+        "cron-doctor-001",
+        "paseo-live-activity-cards-001"
       ],
       "evidence_refs": [
-        "DL-001"
+        "DL-001",
+        "AT-001",
+        "AS-001",
+        "AS-002",
+        "AS-004"
       ],
       "adjustments": [
         {
           "session_id": "cron-doctor-001",
           "reason": "Learner chose a personal Paseo plugin (Live Activity Cards, Risk Radar, Attention Mode) as phase 1 instead of Cron Doctor.",
           "recorded_at": "2026-10-29T02:30:24Z"
+        },
+        {
+          "session_id": "paseo-live-activity-cards-001",
+          "reason": "The artifact works and scope is now explicit, but the core judgment is still agent-proposed; a short extension of the same plugin where the learner writes the open/collapse or attention decision, tested against a concrete scenario, before delegating code would produce learner-owned evidence.",
+          "recorded_at": "2026-11-08T05:53:39Z"
         }
       ]
     },
@@ -143,6 +154,27 @@
         }
       ],
       "accepted_at": "2026-10-29T02:32:23Z"
+    },
+    {
+      "reason": "Live Activity Cards closed inconclusive with retry-similar; learner accepted a two-day running-step policy retry in week 1 before Risk Radar.",
+      "effective_week": 1,
+      "updates": [
+        {
+          "week": 1,
+          "theme": "Make agent activity visible",
+          "competency_focus": [
+            "heterogeneous data normalization",
+            "live state display policy"
+          ],
+          "project_focus": "Paseo plugin phase 1: Live Activity Cards, then running-step policy retry",
+          "mini_project_ids": [
+            "paseo-live-activity-cards",
+            "paseo-running-step-policy"
+          ],
+          "target_duration_days": 3
+        }
+      ],
+      "accepted_at": "2026-11-08T06:06:42Z"
     }
   ]
 }

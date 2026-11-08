@@ -1,0 +1,181 @@
+{
+  "schema_version": "learning-session/v1",
+  "session_id": "paseo-running-step-policy-001",
+  "case_id": "paseo-running-step-policy",
+  "case_path": "docs/learning/cases/paseo-running-step-policy.json",
+  "case_checksum": "c79b8ffb649370ae0d691e862b084567e31f8221f419f67810cd19108b94d398",
+  "status": "active",
+  "started_at": "2026-11-08T06:06:51Z",
+  "updated_at": "2026-11-08T06:23:36Z",
+  "active_competency": {
+    "id": "COMP-LIVE-CARDS-001",
+    "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
+    "description": "Gom output khác nhau của nhiều provider về một mô hình card nhỏ, rõ ràng, và quyết định cái gì hiển thị khi nào để người dùng theo dõi được agent mà không bị ngập thông tin."
+  },
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "project_version": 2,
+    "schedule_id": "mini-product-lab-season-1",
+    "schedule_week": 1,
+    "project_snapshot": {
+      "title": "Mini Product Lab",
+      "domain": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions.",
+      "product_goal": "Build useful small software products while practicing specification clarification, implementation judgment, failure handling, and evidence-backed revision.",
+      "architecture_baseline": "Local-first CLI, proxy, or small worker implementations selected per mini-project; no web application; use the simplest architecture that satisfies the accepted specification."
+    },
+    "weekly_plan": {
+      "theme": "Make agent activity visible",
+      "competency_focus": [
+        "heterogeneous data normalization",
+        "live state display policy"
+      ],
+      "project_focus": "Paseo plugin phase 1: Live Activity Cards, then running-step policy retry",
+      "mini_project_ids": [
+        "paseo-live-activity-cards",
+        "paseo-running-step-policy"
+      ],
+      "target_duration_days": 3
+    },
+    "project_spec": {
+      "problem": "At Brief and Steps a running step shows only its chip with a spinner and elapsed time, so during a long command the user cannot tell whether the agent is making progress or is stuck, and the only way to see more is to open the body or switch to Full.",
+      "user": "The learner: a fullstack developer who mainly runs Claude Code agents in Paseo at Brief to skim, and needs to decide quickly whether to let an agent continue or stop it.",
+      "functional_requirements": [
+        "Define what a running step shows at Brief and at Steps, including how it signals that work is progressing.",
+        "Define how a running step changes when it finishes, fails, is stopped, or runs much longer than usual.",
+        "Implement that policy in the existing plugin for Claude Code agents without changing Full."
+      ],
+      "acceptance_criteria": [
+        "While a command runs for several minutes at Brief, the user can tell without clicking whether it is still producing output.",
+        "A failed step can be spotted at Brief without reading its body.",
+        "A finished turn at Brief still reads as a compact, skimmable list.",
+        "The written policy, decision record, or plan names the scenarios it was checked against and what the user sees in each."
+      ],
+      "constraints": [
+        "Extend the existing agent-activity plugin; do not create a new plugin.",
+        "Write the running-step policy yourself, as a policy note, decision record, or plan that states what the user sees and why, before giving the implementation to a coding agent; state it in the task so the agent implements it instead of choosing it.",
+        "Use React Native primitives only, as required for Paseo plugin surfaces.",
+        "Keep requirements.paseo compatible with the installed Paseo 0.15.x.",
+        "No remote service is required."
+      ],
+      "non_goals": [
+        "Codex or OMP support.",
+        "Cards for assistant replies or errors.",
+        "Classifying commands by risk.",
+        "Notifications, sounds, or rules for interrupting the user.",
+        "Scrolling the timeline to the running step.",
+        "A settings screen beyond the existing detail levels."
+      ],
+      "deliverable": [
+        "A commit in the plugin repository with the learner-written policy, decision record, or plan and its implementation.",
+        "A short demo on Claude Code of each scenario named in the policy at Brief and Steps."
+      ],
+      "open_questions": [
+        "What tells you a running step is progressing rather than stuck?",
+        "Should Brief and Steps show running work differently, and why?",
+        "When does a step count as running unusually long?"
+      ]
+    }
+  },
+  "boundary": {
+    "accepted": true,
+    "accepted_at": "2026-11-08T06:06:51Z",
+    "scope": "mini-project",
+    "ai_authority": "case support and explicitly authorized mechanical work",
+    "protected_judgment_ids": [
+      "PJ-RUN-POLICY-001"
+    ]
+  },
+  "mini_project": {
+    "case_id": "paseo-running-step-policy",
+    "category": "developer-tool",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 2,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Decide and ship what a running step shows at Brief and Steps so you can tell, without opening anything, whether the agent is making progress or should be stopped.",
+    "deliverable": "An update to the existing agent-activity plugin that implements the learner's written running-step policy at Brief and Steps for Claude Code agents.",
+    "definition_of_done": [
+      "A short running-step policy, decision record, or plan written by the learner in their own words exists in the plugin folder, states what the user sees in each named scenario and why, and was committed before any coding agent implemented it.",
+      "At Brief and Steps, a running step shows the live signals the policy defines without any click.",
+      "A step that finishes, fails, or is stopped changes to its final state as the policy defines, and the final state is distinguishable at a glance.",
+      "Full keeps its current behavior, and disabling the plugin still returns Paseo to its default rendering.",
+      "The plugin installs on the local daemon and reports running with no error."
+    ]
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-RUN-POLICY-001",
+      "title": "Running-step display policy at Brief and Steps",
+      "status": "open",
+      "first_attempt": null,
+      "revisions": [],
+      "closed_at": null
+    }
+  ],
+  "discovered_fact_ids": [
+    "F-RUN-POLICY-001",
+    "F-RUN-POLICY-002"
+  ],
+  "discovery_records": [],
+  "released_event_ids": [],
+  "event_release_records": [],
+  "assistance": [
+    {
+      "id": "AS-001",
+      "judgment_id": "PJ-RUN-POLICY-001",
+      "level": 3,
+      "kind": "counterexample",
+      "content": "During Build discussion the learner floated: silence cannot be detected because it depends on the script (assumed agent polling costs tokens), no long-run threshold for the same reason, Brief and Steps can look the same while running. After the learner asked not to be agreed with, gave counterexamples without a policy: 'cannot detect' is untested before observing what Paseo sends the plugin, and silence is not always stuck (tsc or docker build quiet for a minute); no threshold moves the threshold into the user's head (npm test at 9:52 after 10 minutes away); 'có sao đâu' is not a reason, asked what Steps adds while a step runs if it looks the same as Brief.",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": true,
+      "judgment_status_before": "open",
+      "impact": "Challenges the learner's early direction on silence detection, long-run threshold and Brief/Steps difference without proposing a policy; the learner still owns the choice.",
+      "recorded_at": "2026-11-08T06:23:36Z"
+    }
+  ],
+  "evidence_requests": [],
+  "system_evidence": [],
+  "evidence_interpretations": [],
+  "delivery": {
+    "id": "DL-001",
+    "status": "not-started",
+    "summary": null,
+    "artifact_refs": [],
+    "completed_criteria": [],
+    "limitations": [],
+    "recorded_at": null
+  },
+  "assessment": {
+    "dimensions": [],
+    "result_summary": {
+      "independent": [],
+      "assisted": [],
+      "not_demonstrated": []
+    },
+    "gaps": [],
+    "outcome": null,
+    "limitations": [],
+    "disputes": [],
+    "next_action": null,
+    "accepted_by_human": false,
+    "accepted_at": null
+  },
+  "history": [
+    {
+      "at": "2026-11-08T06:06:51Z",
+      "type": "session-initialized",
+      "detail": "Mini-project loaded; boundary awaits human acceptance."
+    },
+    {
+      "at": "2026-11-08T06:06:51Z",
+      "type": "boundary-accepted",
+      "detail": "Human accepted the active competency and protected scope."
+    },
+    {
+      "at": "2026-11-08T06:23:36Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 3 assistance for PJ-RUN-POLICY-001."
+    }
+  ]
+}

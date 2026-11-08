@@ -4,9 +4,9 @@
   "case_id": "paseo-live-activity-cards",
   "case_path": "docs/learning/cases/paseo-live-activity-cards.json",
   "case_checksum": "923d4a5ac4d26c45e4b2aa1927dc9aeca8782fc905ac32e356147cbfad86c8e1",
-  "status": "assessment",
+  "status": "completed",
   "started_at": "2026-10-29T02:32:23Z",
-  "updated_at": "2026-11-06T02:07:41Z",
+  "updated_at": "2026-11-08T05:53:39Z",
   "active_competency": {
     "id": "COMP-LIVE-CARDS-001",
     "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
@@ -184,6 +184,19 @@
       "judgment_status_before": "assisted",
       "impact": "Asks the learner to check the mapping against a provider-specific tool without stating the expected mapping.",
       "recorded_at": "2026-11-06T02:05:07Z"
+    },
+    {
+      "id": "AS-004",
+      "judgment_id": "PJ-LIVE-CARDS-001",
+      "level": 2,
+      "kind": "request-for-missing-reasoning",
+      "content": "After the learner disputed attribution, asked: whether the Brief/Steps-collapsed and Full-open policy was the learner's idea or an agent proposal the learner chose; why running bodies stay closed at Brief/Steps, using the npm test 3-minute scenario; why replies and errors keep default rendering. Learner answered: agent proposed, learner chose; wants a compact skimmable mode; cards take too much space for long reading.",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": false,
+      "judgment_status_before": "assessment-frozen",
+      "impact": "Collects the learner's stated reasons for the scope decisions without suggesting a policy.",
+      "recorded_at": "2026-11-08T05:52:29Z"
     }
   ],
   "evidence_requests": [],
@@ -191,8 +204,8 @@
   "evidence_interpretations": [],
   "delivery": {
     "id": "DL-001",
-    "status": "in-progress",
-    "summary": "Plugin agent-activity installs and runs on the learner's Paseo 0.15.0 daemon with no error; typecheck passes and 53 unit tests pass. Tool calls and reasoning render as activity steps with icon and verb label at Brief/Steps/Full levels plus two composer pills. Learner-provided E2E evidence (isolated daemon, Claude Haiku 5.5, dark and light, desktop and compact) shows Brief chips, Steps rows with run headers and phase labels, Full bodies and default rendering when disabled.",
+    "status": "shipped",
+    "summary": "Shipped at the learner's revised scope (Claude Code only). Plugin agent-activity installs and runs on the learner's Paseo 0.15.0 daemon with no error; typecheck passes and 53 unit tests pass. Tool calls and reasoning render as activity steps with icon and verb label at Brief/Steps/Full levels plus two composer pills. Learner-provided E2E evidence (isolated daemon, Claude Haiku 5.5, dark and light, desktop and compact) shows Brief chips, Steps rows, Full bodies and default rendering when disabled. No code changed since the first review; the learner narrowed scope after feedback.",
     "artifact_refs": [
       "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/agent-activity@ff1c67ac563affd27a1ec48a01d8fecf1dc30954",
       "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/docs/testing/evidence/agent-activity@ff1c67ac563affd27a1ec48a01d8fecf1dc30954"
@@ -202,15 +215,15 @@
       "The card style is the learner's own and is visibly different from both default Paseo and Beautiful Chat."
     ],
     "limitations": [
-      "Assistant replies and turn errors keep Paseo default rendering, so the criterion that replies and errors render as plugin cards is not met.",
-      "A running step's body is not open without a click at the default Brief or Steps level; the step header shows a spinner and elapsed time, and the body opens only at Full or on tap. The open-while-running criterion is replaced by a user-chosen detail level.",
-      "Cross-provider consistency is shown only for Claude Code; Codex handling exists in code and unit tests but no Codex or OMP runtime demo was submitted.",
+      "Learner scope decision after feedback: assistant replies and turn errors keep Paseo default rendering because cards take too much space for long reading sessions; the replies-and-errors-as-cards criterion is not met.",
+      "Learner scope decision after feedback: running step bodies open automatically only at Full; Brief and Steps stay collapsed for skimming, showing spinner and elapsed time on the header; the open-while-running criterion is replaced by this detail-level policy (agent-proposed, learner-chosen).",
+      "Learner scope decision after feedback: only Claude Code is required because the learner mainly uses it; Codex and OMP were not run, so the cross-provider criterion is not met.",
       "Reasoning steps not observed at runtime; E2E evidence predates the final Codex and pill commits and was not re-run by the reviewer.",
       "Syntax highlighting, a listed non-goal, was added.",
-      "Implied-requirement checks are based on code, unit tests and screenshots: unknown and MCP tools render as a generic named step; running output is bounded to the last 12 lines and done output to the first 40 lines with an 8 KB field cap (no 2000-line runtime run); dark and light screenshots are legible with per-brightness palette variants.",
+      "Implied-requirement checks are based on code, unit tests and screenshots, not a 2000-line runtime run.",
       "The submission explanation, plan and observed notes were written by the learner's AI agent and are not counted as the learner's reasoning."
     ],
-    "recorded_at": "2026-11-06T02:05:07Z"
+    "recorded_at": "2026-11-08T05:52:01Z"
   },
   "assessment": {
     "dimensions": [
@@ -227,15 +240,16 @@
       },
       {
         "id": "RUB-LIVE-CARDS-002",
-        "rating": "not-demonstrated",
+        "rating": "partial",
         "independence": "assisted",
         "evidence": [
           "AT-001",
           "AS-001",
           "AS-002",
+          "AS-004",
           "DL-001"
         ],
-        "limitation": "The AI-chosen policy keeps running step bodies closed at the default levels, unlike the accepted criterion; the learner skipped the chance to defend or revise it, and no scenario-based explanation (long output, parallel calls) came from the learner."
+        "limitation": "The detail-level policy was proposed by the agent and chosen by the learner; the learner justified it by a preference for compact, skimmable output and limited screen space, but did not test it against a concrete scenario such as a three-minute npm test at Brief."
       },
       {
         "id": "RUB-LIVE-CARDS-003",
@@ -245,42 +259,52 @@
           "AS-001",
           "DL-001"
         ],
-        "limitation": "All three implied requirements are handled in the artifact before feedback (generic named step for unknown and MCP tools, bounded running and finished output, light and dark palette variants), but by the AI agent; the 2000-line output check is supported by code and unit tests only, not a runtime run."
+        "limitation": "All three implied requirements are handled in the artifact before feedback, but by the AI agent; the 2000-line output check is supported by code and unit tests only, not a runtime run."
       }
     ],
     "result_summary": {
       "independent": [
-        "Chose one chip per row for Brief after the spike showed every plugin item takes 16px even when empty."
+        "Chose one chip per row for Brief after the spike showed every plugin item takes 16px even when empty.",
+        "After feedback, narrowed scope with own reasons: Claude Code only, replies and errors on default rendering to save space in long reading sessions."
       ],
       "assisted": [
+        "Chose the agent-proposed detail-level policy (Brief and Steps collapsed, Full auto-open) for compact skimming.",
         "Shipped an installable, running plugin with icon-and-label activity steps, three detail levels and a follow pill.",
         "Unknown and MCP tools render as a readable named step; long output stays bounded; steps stay legible on light and dark themes."
       ],
       "not_demonstrated": [
-        "The learner's own reasoning for the activity set, provider mapping and open/collapse policy.",
-        "Open-while-running cards and plugin cards for replies and errors, as in the definition of done.",
-        "Consistent behavior on Codex and OMP at runtime."
+        "The learner's own reasoning for the activity set and provider mapping.",
+        "Checking the open/collapse policy against a concrete long-running scenario before choosing it."
       ]
     },
     "gaps": [
-      "learning-evidence-gap: the owned decision (card model and open/collapse policy) was delegated to the AI agent instead of being decided by the learner and stated in the task.",
-      "reasoning-gap: divergence from the accepted spec (detail level instead of open-while-running, replies and errors left on default rendering, syntax highlighting added) was not reconciled as an explicit scope decision.",
-      "system-evidence-gap: cross-provider behavior is claimed but only Claude Code was demonstrated; Codex and OMP were not run."
+      "learning-evidence-gap: the owned decision (card model and open/collapse policy) was proposed by the AI agent and chosen by the learner instead of being designed by the learner and stated in the task.",
+      "reasoning-gap: the open/collapse policy was justified by a general preference without testing it against a concrete user scenario such as a long-running command."
     ],
     "outcome": "inconclusive",
     "limitations": [
       "The submission explanation, plan and observed notes were written by the learner's AI agent and were not counted as the learner's reasoning.",
-      "Who wrote the Codex handling and whether Codex was run is unconfirmed.",
+      "The learner's reasons were given after the judgment was frozen, in answer to clarifying questions; they count as stated reasoning, not as an independent first attempt.",
+      "Codex and OMP were descoped by the learner after feedback; cross-provider behavior is untested.",
       "The reviewer ran typecheck, unit tests and plugin status, and read the submitted screenshots; E2E was not re-run after the final commits.",
       "The parallel-burst twist was not released because the plugin was not shown on all three providers."
     ],
-    "disputes": [],
+    "disputes": [
+      {
+        "id": "DP-001",
+        "category": "attribution",
+        "status": "resolved",
+        "reason": "Learner states the UI direction and the open/collapse policy (Brief and Steps collapsed, Full auto-open) are their own decisions. Asked to clarify, the learner said the agent proposed the UI and the learner chose that proposal. Reasons given in the learner's words: wants a compact mode that is easy to skim; replies and errors stay default because cards take too much space for long reading sessions; only Claude Code matters because that is what the learner mainly uses. The learner did not answer the npm test 3-minute scenario directly.",
+        "raised_at": "2026-11-08T05:52:01Z",
+        "resolution": "Partly accepted. Learner confirmed the agent proposed the UI and policy and the learner chose it, so attribution stays assisted. The learner's own reasons (compact skimmable mode; default rendering for replies and errors to save space in long sessions; Claude Code only because it is the main tool) now explicitly reconcile the scope divergence, so the open/collapse dimension moves from not-demonstrated to partial and the scope-reconciliation gap is replaced. The long-running scenario was not answered, and the activity set and provider mapping were not addressed."
+      }
+    ],
     "next_action": {
       "type": "retry-similar",
-      "reason": "The artifact works, but there is no learner-owned evidence for the core judgment; a short extension of the same plugin where the learner writes the open/collapse decision before delegating code would produce that evidence."
+      "reason": "The artifact works and scope is now explicit, but the core judgment is still agent-proposed; a short extension of the same plugin where the learner writes the open/collapse or attention decision, tested against a concrete scenario, before delegating code would produce learner-owned evidence."
     },
-    "accepted_by_human": false,
-    "accepted_at": null
+    "accepted_by_human": true,
+    "accepted_at": "2026-11-08T05:53:39Z"
   },
   "history": [
     {
@@ -327,6 +351,37 @@
       "at": "2026-11-06T02:07:41Z",
       "type": "assessment-proposed",
       "detail": "Prepared an evidence-bound assessment for human review."
+    },
+    {
+      "at": "2026-11-08T05:52:01Z",
+      "type": "deliverable-recorded",
+      "detail": "Recorded mini-project delivery as shipped."
+    },
+    {
+      "at": "2026-11-08T05:52:01Z",
+      "type": "assessment-disputed",
+      "detail": "Recorded dispute DP-001."
+    },
+    {
+      "at": "2026-11-08T05:52:29Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 2 assistance for PJ-LIVE-CARDS-001."
+    },
+    {
+      "at": "2026-11-08T05:52:29Z",
+      "type": "assessment-dispute-resolved",
+      "detail": "Resolved dispute DP-001."
+    },
+    {
+      "at": "2026-11-08T05:52:29Z",
+      "type": "assessment-proposed",
+      "detail": "Prepared an evidence-bound assessment for human review."
+    },
+    {
+      "at": "2026-11-08T05:53:39Z",
+      "type": "session-completed",
+      "detail": "Human accepted the assessment and progression recommendation."
     }
-  ]
+  ],
+  "completed_at": "2026-11-08T05:53:39Z"
 }

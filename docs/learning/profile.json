@@ -26,9 +26,20 @@
       "independence": "not-observed",
       "last_session_id": "cron-doctor-001",
       "updated_at": "2026-10-29T02:30:24Z"
+    },
+    {
+      "id": "COMP-LIVE-CARDS-001",
+      "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
+      "latest_outcome": "inconclusive",
+      "independence": "assisted",
+      "last_session_id": "paseo-live-activity-cards-001",
+      "updated_at": "2026-11-08T05:53:39Z"
     }
   ],
-  "current_gaps": [],
+  "current_gaps": [
+    "learning-evidence-gap: the owned decision (card model and open/collapse policy) was proposed by the AI agent and chosen by the learner instead of being designed by the learner and stated in the task.",
+    "reasoning-gap: the open/collapse policy was justified by a general preference without testing it against a concrete user scenario such as a long-running command."
+  ],
   "progress_history": [
     {
       "session_id": "cron-doctor-001",
@@ -43,13 +54,38 @@
       },
       "gaps": [],
       "completed_at": "2026-10-29T02:30:24Z"
+    },
+    {
+      "session_id": "paseo-live-activity-cards-001",
+      "competency_id": "COMP-LIVE-CARDS-001",
+      "outcome": "inconclusive",
+      "result_summary": {
+        "independent": [
+          "Chose one chip per row for Brief after the spike showed every plugin item takes 16px even when empty.",
+          "After feedback, narrowed scope with own reasons: Claude Code only, replies and errors on default rendering to save space in long reading sessions."
+        ],
+        "assisted": [
+          "Chose the agent-proposed detail-level policy (Brief and Steps collapsed, Full auto-open) for compact skimming.",
+          "Shipped an installable, running plugin with icon-and-label activity steps, three detail levels and a follow pill.",
+          "Unknown and MCP tools render as a readable named step; long output stays bounded; steps stay legible on light and dark themes."
+        ],
+        "not_demonstrated": [
+          "The learner's own reasoning for the activity set and provider mapping.",
+          "Checking the open/collapse policy against a concrete long-running scenario before choosing it."
+        ]
+      },
+      "gaps": [
+        "learning-evidence-gap: the owned decision (card model and open/collapse policy) was proposed by the AI agent and chosen by the learner instead of being designed by the learner and stated in the task.",
+        "reasoning-gap: the open/collapse policy was justified by a general preference without testing it against a concrete user scenario such as a long-running command."
+      ],
+      "completed_at": "2026-11-08T05:53:39Z"
     }
   ],
-  "active_session_id": "paseo-live-activity-cards-001",
+  "active_session_id": "paseo-running-step-policy-001",
   "next_action": {
-    "type": "change-competency",
-    "reason": "Learner chose a personal Paseo plugin (Live Activity Cards, Risk Radar, Attention Mode) as phase 1 instead of Cron Doctor."
+    "type": "retry-similar",
+    "reason": "The artifact works and scope is now explicit, but the core judgment is still agent-proposed; a short extension of the same plugin where the learner writes the open/collapse or attention decision, tested against a concrete scenario, before delegating code would produce learner-owned evidence."
   },
   "cadence": "mini-project",
-  "updated_at": "2026-10-29T02:32:23Z"
+  "updated_at": "2026-11-08T06:06:51Z"
 }
