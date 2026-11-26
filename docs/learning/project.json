@@ -4,7 +4,7 @@
   "title": "Mini Product Lab",
   "status": "active",
   "accepted_at": "2026-10-28T03:58:50Z",
-  "version": 2,
+  "version": 3,
   "domain": {
     "name": "developer-and-ops-tools",
     "summary": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions."
@@ -56,13 +56,18 @@
     "accepted_decisions": [
       "The agent-activity plugin targets Claude Code only; Codex and OMP are out of scope.",
       "Assistant replies and turn errors keep Paseo default rendering because cards take too much space for long reading sessions.",
-      "The plugin offers Brief, Steps and Full detail levels; only Full opens running bodies automatically."
+      "The plugin offers Brief, Steps and Full detail levels; only Full opens running bodies automatically.",
+      "At Brief and Steps a running step shows the same signals (layout differs only): a per-step elapsed clock, 'Waiting for approval' without a clock while a Claude Code permission is pending, and 'In background' with a running clock after a timeout or run_in_background.",
+      "A background step ends as 'Ran' with total time, 'exit N' or 'killed' in red with total time, or 'status unknown' without a clock when the agent closed with no notification; a denied permission shows as a failed 'denied' step; a stopped step keeps the canceled display.",
+      "The plugin does not simulate progress: no slow mark, silence signal, line count or last output line, because Claude Code sends no output while a shell command runs."
     ],
     "delivered_capabilities": [
-      "Installable agent-activity Paseo plugin rendering tool calls and reasoning as icon-and-label activity steps at three detail levels."
+      "Installable agent-activity Paseo plugin rendering tool calls and reasoning as icon-and-label activity steps at three detail levels.",
+      "agent-activity shows waiting-for-approval, in-background, stopped and finished states with elapsed time at Brief and Steps for Claude Code, and keeps the clock across reload."
     ],
     "active_constraints": [
-      "Later phases extend the same agent-activity plugin on the learner's local Paseo 0.15.x."
+      "Later phases extend the same agent-activity plugin on the learner's local Paseo 0.15.x.",
+      "Claude Code sends no shell output while a command runs and moves a command to the background at its timeout instead of killing it (observed on Claude Code 2.1.319, Paseo 0.15.3)."
     ]
   },
   "evolution_history": [
@@ -91,6 +96,23 @@
         "Later phases extend the same agent-activity plugin on the learner's local Paseo 0.15.x."
       ],
       "accepted_at": "2026-11-08T06:06:42Z"
+    },
+    {
+      "version": 3,
+      "session_id": "paseo-running-step-policy-001",
+      "summary": "Accepted the learner's running-step display policy for the agent-activity plugin at Brief and Steps.",
+      "decisions": [
+        "At Brief and Steps a running step shows the same signals (layout differs only): a per-step elapsed clock, 'Waiting for approval' without a clock while a Claude Code permission is pending, and 'In background' with a running clock after a timeout or run_in_background.",
+        "A background step ends as 'Ran' with total time, 'exit N' or 'killed' in red with total time, or 'status unknown' without a clock when the agent closed with no notification; a denied permission shows as a failed 'denied' step; a stopped step keeps the canceled display.",
+        "The plugin does not simulate progress: no slow mark, silence signal, line count or last output line, because Claude Code sends no output while a shell command runs."
+      ],
+      "delivered_capabilities": [
+        "agent-activity shows waiting-for-approval, in-background, stopped and finished states with elapsed time at Brief and Steps for Claude Code, and keeps the clock across reload."
+      ],
+      "active_constraints": [
+        "Claude Code sends no shell output while a command runs and moves a command to the background at its timeout instead of killing it (observed on Claude Code 2.1.319, Paseo 0.15.3)."
+      ],
+      "accepted_at": "2026-11-26T03:39:43Z"
     }
   ]
 }

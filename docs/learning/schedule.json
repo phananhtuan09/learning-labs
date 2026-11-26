@@ -19,15 +19,18 @@
   "weeks": [
     {
       "week": 1,
-      "theme": "Make agent activity visible",
+      "theme": "Make agent activity visible, then hold limited stock under asynchronous payment",
       "competency_focus": [
         "heterogeneous data normalization",
-        "live state display policy"
+        "live state display policy",
+        "contended resource lifecycle",
+        "API-frontend integration security and performance"
       ],
-      "project_focus": "Paseo plugin phase 1: Live Activity Cards, then running-step policy retry",
+      "project_focus": "Paseo plugin phase 1 (Live Activity Cards, running-step policy), then Checkout Hold API",
       "mini_project_ids": [
         "paseo-live-activity-cards",
-        "paseo-running-step-policy"
+        "paseo-running-step-policy",
+        "checkout-hold-api"
       ],
       "target_duration_days": 3,
       "status": "in-progress",
@@ -184,6 +187,30 @@
         }
       ],
       "accepted_at": "2026-11-08T06:06:42Z"
+    },
+    {
+      "reason": "Learner stopped the Paseo plugin track after the running-step policy session and chose a backend topic: a checkout hold API with thin frontend integration, assessing integration security and performance but not frontend UI. Replaces the proposed deploy-CLI transfer.",
+      "effective_week": 1,
+      "updates": [
+        {
+          "week": 1,
+          "theme": "Make agent activity visible, then hold limited stock under asynchronous payment",
+          "competency_focus": [
+            "heterogeneous data normalization",
+            "live state display policy",
+            "contended resource lifecycle",
+            "API-frontend integration security and performance"
+          ],
+          "project_focus": "Paseo plugin phase 1 (Live Activity Cards, running-step policy), then Checkout Hold API",
+          "mini_project_ids": [
+            "paseo-live-activity-cards",
+            "paseo-running-step-policy",
+            "checkout-hold-api"
+          ],
+          "target_duration_days": 3
+        }
+      ],
+      "accepted_at": "2026-11-26T03:51:43Z"
     }
   ]
 }

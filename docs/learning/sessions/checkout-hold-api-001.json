@@ -1,0 +1,161 @@
+{
+  "schema_version": "learning-session/v1",
+  "session_id": "checkout-hold-api-001",
+  "case_id": "checkout-hold-api",
+  "case_path": "docs/learning/cases/checkout-hold-api.json",
+  "case_checksum": "a635f13821416aef78a881cd75c48aefbe01bb7f924f5acde920331e14614253",
+  "status": "boundary-pending",
+  "started_at": "2026-11-26T03:58:12Z",
+  "updated_at": "2026-11-26T03:58:12Z",
+  "active_competency": {
+    "id": "COMP-BACKEND-HOLD-001",
+    "name": "Thiết kế lifecycle backend có tranh chấp tài nguyên và hợp đồng tích hợp API–FE",
+    "description": "Quyết định trạng thái, thời hạn và cách xử lý tranh chấp của một tài nguyên có hạn khi có kết quả bất đồng bộ, và thiết kế cách frontend tích hợp với API sao cho an toàn và chịu được tải."
+  },
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "project_version": 3,
+    "schedule_id": "mini-product-lab-season-1",
+    "schedule_week": 1,
+    "project_snapshot": {
+      "title": "Mini Product Lab",
+      "domain": "A rotating set of small non-web developer and operations tools (CLIs, network proxies, background workers, incident fixes) that can be shipped in two or three focused work sessions.",
+      "product_goal": "Build useful small software products while practicing specification clarification, implementation judgment, failure handling, and evidence-backed revision.",
+      "architecture_baseline": "Local-first CLI, proxy, or small worker implementations selected per mini-project; no web application; use the simplest architecture that satisfies the accepted specification."
+    },
+    "weekly_plan": {
+      "theme": "Make agent activity visible, then hold limited stock under asynchronous payment",
+      "competency_focus": [
+        "heterogeneous data normalization",
+        "live state display policy",
+        "contended resource lifecycle",
+        "API-frontend integration security and performance"
+      ],
+      "project_focus": "Paseo plugin phase 1 (Live Activity Cards, running-step policy), then Checkout Hold API",
+      "mini_project_ids": [
+        "paseo-live-activity-cards",
+        "paseo-running-step-policy",
+        "checkout-hold-api"
+      ],
+      "target_duration_days": 3
+    },
+    "project_spec": {
+      "problem": "A small shop sells limited drops (for example 20 units) and the payment provider confirms payments asynchronously, from a few seconds to a few minutes later. During the last drop it oversold some units and charged buyers who never got the item.",
+      "user": "Buyers who try to purchase during a drop through the shop's web frontend, and the shop owner who must not oversell or charge for items that cannot be delivered.",
+      "functional_requirements": [
+        "A buyer can hold one or more units of a product for a limited time while paying.",
+        "The third-party payment provider reports success or failure for a hold's payment, and a successful payment turns the hold into an order.",
+        "The frontend client learns the final result of the buyer's checkout without a manual reload.",
+        "A hold that is not paid in time releases its units for other buyers.",
+        "Define what happens when a payment result arrives after its hold expired."
+      ],
+      "acceptance_criteria": [
+        "Under a simulation of many concurrent buyers on the last units, confirmed orders never exceed the stock.",
+        "A buyer always ends with a visible outcome in the client: order confirmed, payment failed, or hold expired, plus any outcome the policy adds.",
+        "Units from an expired or failed hold become available to other buyers.",
+        "The written policy names the scenarios it was checked against and what the buyer sees in each."
+      ],
+      "constraints": [
+        "Runs locally except the third-party payment provider, which is used only in its free sandbox or test mode; the provider is your choice.",
+        "Backend language, framework and storage are your choice; justify the storage choice by the concurrency requirement.",
+        "The thin frontend client has three buyer screens: a drop page showing the product, whether stock remains, and a hold action with quantity; a checkout page showing the active hold and its remaining time with a pay action; and a result page that waits for and shows the final outcome. Payment outcomes such as success, failure or delay are produced with the provider's sandbox tools, for example test cards or its CLI.",
+        "The frontend client is a thin client to run the real flow; its visual design is not assessed.",
+        "Write the hold-lifecycle and integration policy yourself before giving the implementation to a coding agent, and state it in the task so the agent implements it instead of choosing it."
+      ],
+      "non_goals": [
+        "User accounts, login or a full authentication system.",
+        "Product catalog management or an admin screen.",
+        "Live payments with real money, real refunds, or shipping.",
+        "Frontend visual design, responsiveness or accessibility review.",
+        "Production deployment or horizontal scaling across machines."
+      ],
+      "deliverable": [
+        "A repository with the learner-written policy, the API, the payment provider sandbox integration, the thin client and the concurrency simulation script.",
+        "A demo of each scenario named in the policy, including the concurrency simulation result."
+      ],
+      "open_questions": [
+        "How long should a hold last, and what decides that?",
+        "How does the client learn the payment result, and what does that cost the server during a drop?",
+        "What happens to a payment that succeeds after its hold expired?"
+      ]
+    }
+  },
+  "boundary": {
+    "accepted": false,
+    "accepted_at": null,
+    "scope": "mini-project",
+    "ai_authority": "case support and explicitly authorized mechanical work",
+    "protected_judgment_ids": [
+      "PJ-HOLD-001"
+    ]
+  },
+  "mini_project": {
+    "case_id": "checkout-hold-api",
+    "category": "backend-feature",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 3,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Build a small checkout API for a limited-stock drop that holds items while an asynchronous payment completes, plus a thin frontend client that runs the real flow, without overselling or charging for items the buyer cannot get.",
+    "deliverable": "A local backend API with a thin frontend client, an integration with a third-party payment provider's sandbox, and a concurrency simulation script that run the hold, pay, and result flow for a limited-stock drop.",
+    "definition_of_done": [
+      "A short hold-lifecycle and integration policy written by the learner in their own words exists in the project folder, names the scenarios it was checked against and what the buyer sees in each, and was committed before any coding agent implemented it.",
+      "A buyer can hold units of a product through the frontend client, pay through the payment provider's sandbox, and see the final result in the client without reloading the page.",
+      "The concurrency simulation runs many buyers against the last units and never sells more than the stock.",
+      "A hold that is not paid in time releases its units, and a payment that arrives after the hold expired ends in an outcome the policy defines and the buyer can see.",
+      "The API and client start locally with documented commands, including how the payment provider sandbox is configured and how its payment results reach the API."
+    ]
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-HOLD-001",
+      "title": "Hold lifecycle and API-frontend integration contract",
+      "status": "open",
+      "first_attempt": null,
+      "revisions": [],
+      "closed_at": null
+    }
+  ],
+  "discovered_fact_ids": [
+    "F-HOLD-001",
+    "F-HOLD-002"
+  ],
+  "discovery_records": [],
+  "released_event_ids": [],
+  "event_release_records": [],
+  "assistance": [],
+  "evidence_requests": [],
+  "system_evidence": [],
+  "evidence_interpretations": [],
+  "delivery": {
+    "id": "DL-001",
+    "status": "not-started",
+    "summary": null,
+    "artifact_refs": [],
+    "completed_criteria": [],
+    "limitations": [],
+    "recorded_at": null
+  },
+  "assessment": {
+    "dimensions": [],
+    "result_summary": {
+      "independent": [],
+      "assisted": [],
+      "not_demonstrated": []
+    },
+    "gaps": [],
+    "outcome": null,
+    "limitations": [],
+    "disputes": [],
+    "next_action": null,
+    "accepted_by_human": false,
+    "accepted_at": null
+  },
+  "history": [
+    {
+      "at": "2026-11-26T03:58:12Z",
+      "type": "session-initialized",
+      "detail": "Mini-project loaded; boundary awaits human acceptance."
+    }
+  ]
+}

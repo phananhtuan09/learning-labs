@@ -106,11 +106,11 @@
       "completed_at": "2026-11-26T03:37:53Z"
     }
   ],
-  "active_session_id": null,
+  "active_session_id": "checkout-hold-api-001",
   "next_action": {
     "type": "transfer-context",
     "reason": "The live-state policy is mostly sound; a different context (a deploy CLI progress display where steps can be progressing, silent or hung) would show whether the learner can write and justify a live-state policy in their own words without a third iteration on the same plugin."
   },
   "cadence": "mini-project",
-  "updated_at": "2026-11-26T03:37:53Z"
+  "updated_at": "2026-11-26T03:58:12Z"
 }

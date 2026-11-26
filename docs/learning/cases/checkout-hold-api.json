@@ -1,0 +1,285 @@
+{
+  "schema_version": "learning-case/v1",
+  "case_id": "checkout-hold-api",
+  "title": "Checkout Hold API",
+  "domain": "backend-commerce",
+  "difficulty": "intermediate",
+  "provenance": {
+    "kind": "simulation",
+    "statement": "Simulated limited-stock drop adapted from the inventory-reservation case into a three-day backend mini-project with a thin frontend client used only to exercise the API integration; payments go through a third-party provider's free sandbox or test mode chosen by the learner.",
+    "external_sources": []
+  },
+  "assumptions": [
+    "The learner is a fullstack developer moving to backend-focused practice.",
+    "The frontend is a thin client used only to run the real integration flow; its UI is not assessed.",
+    "Payments use a third-party payment provider's free sandbox or test mode chosen by the learner; no live money moves.",
+    "The thin frontend client counts as the project's bounded integration harness, so it stays within the non-web architecture baseline."
+  ],
+  "case_history": [
+    {
+      "version": 1,
+      "change": "Created a three-day backend mini-project from the inventory-reservation idea, adding API-to-frontend integration at the learner's request; frontend UI is out of assessment while integration security and performance are assessed."
+    },
+    {
+      "version": 2,
+      "change": "Before the session boundary was accepted, listed the three thin-client buyer screens and placed provider control outside them at the learner's request, so the learner can size the API."
+    },
+    {
+      "version": 3,
+      "change": "Before the session boundary was accepted, replaced the self-written simulated payment provider with a third-party provider's free sandbox or test mode chosen by the learner, at the learner's request."
+    }
+  ],
+  "learning_context": {
+    "project_id": "mini-product-lab",
+    "minimum_project_version": 1,
+    "schedule_weeks": [
+      1
+    ]
+  },
+  "mini_project": {
+    "id": "checkout-hold-api",
+    "format": "mini-project",
+    "category": "backend-feature",
+    "activity": "build",
+    "mode": "challenge",
+    "duration_days": 3,
+    "daily_time_budget_minutes": 45,
+    "pitch": "Build a small checkout API for a limited-stock drop that holds items while an asynchronous payment completes, plus a thin frontend client that runs the real flow, without overselling or charging for items the buyer cannot get.",
+    "stack": [
+      "Backend language and storage of the learner's choice",
+      "Thin frontend client of the learner's choice",
+      "Third-party payment provider in sandbox or test mode, chosen by the learner"
+    ],
+    "deliverable": "A local backend API with a thin frontend client, an integration with a third-party payment provider's sandbox, and a concurrency simulation script that run the hold, pay, and result flow for a limited-stock drop.",
+    "definition_of_done": [
+      "A short hold-lifecycle and integration policy written by the learner in their own words exists in the project folder, names the scenarios it was checked against and what the buyer sees in each, and was committed before any coding agent implemented it.",
+      "A buyer can hold units of a product through the frontend client, pay through the payment provider's sandbox, and see the final result in the client without reloading the page.",
+      "The concurrency simulation runs many buyers against the last units and never sells more than the stock.",
+      "A hold that is not paid in time releases its units, and a payment that arrives after the hold expired ends in an outcome the policy defines and the buyer can see.",
+      "The API and client start locally with documented commands, including how the payment provider sandbox is configured and how its payment results reach the API."
+    ],
+    "milestones": [
+      {
+        "day": 1,
+        "goal": "Write the hold-lifecycle and integration policy from concrete scenarios.",
+        "scope": [
+          "list buyer and payment scenarios",
+          "decide hold lifecycle and how the client learns the result",
+          "write and commit the policy before delegating code"
+        ]
+      },
+      {
+        "day": 2,
+        "goal": "Implement the API, the payment provider sandbox integration and the thin client.",
+        "scope": [
+          "hold, payment result and status endpoints",
+          "payment provider sandbox integration",
+          "thin client flow"
+        ]
+      },
+      {
+        "day": 3,
+        "goal": "Prove behavior under contention and submit.",
+        "scope": [
+          "concurrency simulation",
+          "demo each policy scenario",
+          "submission"
+        ]
+      }
+    ]
+  },
+  "project_spec": {
+    "problem": "A small shop sells limited drops (for example 20 units) and the payment provider confirms payments asynchronously, from a few seconds to a few minutes later. During the last drop it oversold some units and charged buyers who never got the item.",
+    "user": "Buyers who try to purchase during a drop through the shop's web frontend, and the shop owner who must not oversell or charge for items that cannot be delivered.",
+    "functional_requirements": [
+      "A buyer can hold one or more units of a product for a limited time while paying.",
+      "The third-party payment provider reports success or failure for a hold's payment, and a successful payment turns the hold into an order.",
+      "The frontend client learns the final result of the buyer's checkout without a manual reload.",
+      "A hold that is not paid in time releases its units for other buyers.",
+      "Define what happens when a payment result arrives after its hold expired."
+    ],
+    "acceptance_criteria": [
+      "Under a simulation of many concurrent buyers on the last units, confirmed orders never exceed the stock.",
+      "A buyer always ends with a visible outcome in the client: order confirmed, payment failed, or hold expired, plus any outcome the policy adds.",
+      "Units from an expired or failed hold become available to other buyers.",
+      "The written policy names the scenarios it was checked against and what the buyer sees in each."
+    ],
+    "constraints": [
+      "Runs locally except the third-party payment provider, which is used only in its free sandbox or test mode; the provider is your choice.",
+      "Backend language, framework and storage are your choice; justify the storage choice by the concurrency requirement.",
+      "The thin frontend client has three buyer screens: a drop page showing the product, whether stock remains, and a hold action with quantity; a checkout page showing the active hold and its remaining time with a pay action; and a result page that waits for and shows the final outcome. Payment outcomes such as success, failure or delay are produced with the provider's sandbox tools, for example test cards or its CLI.",
+      "The frontend client is a thin client to run the real flow; its visual design is not assessed.",
+      "Write the hold-lifecycle and integration policy yourself before giving the implementation to a coding agent, and state it in the task so the agent implements it instead of choosing it."
+    ],
+    "non_goals": [
+      "User accounts, login or a full authentication system.",
+      "Product catalog management or an admin screen.",
+      "Live payments with real money, real refunds, or shipping.",
+      "Frontend visual design, responsiveness or accessibility review.",
+      "Production deployment or horizontal scaling across machines."
+    ],
+    "deliverable": [
+      "A repository with the learner-written policy, the API, the payment provider sandbox integration, the thin client and the concurrency simulation script.",
+      "A demo of each scenario named in the policy, including the concurrency simulation result."
+    ],
+    "open_questions": [
+      "How long should a hold last, and what decides that?",
+      "How does the client learn the payment result, and what does that cost the server during a drop?",
+      "What happens to a payment that succeeds after its hold expired?"
+    ]
+  },
+  "active_competency": {
+    "id": "COMP-BACKEND-HOLD-001",
+    "name": "Thiết kế lifecycle backend có tranh chấp tài nguyên và hợp đồng tích hợp API–FE",
+    "description": "Quyết định trạng thái, thời hạn và cách xử lý tranh chấp của một tài nguyên có hạn khi có kết quả bất đồng bộ, và thiết kế cách frontend tích hợp với API sao cho an toàn và chịu được tải."
+  },
+  "public_brief": {
+    "business_goal": "Bán hết hàng của một đợt mở bán giới hạn mà không bán vượt tồn kho, không thu tiền cho món khách không nhận được, và khách luôn biết kết quả của mình.",
+    "current_context": [
+      "Shop bán theo đợt, mỗi đợt một số lượng nhỏ, ví dụ 20 đơn vị.",
+      "Cổng thanh toán xác nhận bất đồng bộ, từ vài giây đến vài phút sau khi khách bấm thanh toán.",
+      "Đợt trước bị bán vượt tồn kho và có khách bị trừ tiền nhưng không có hàng.",
+      "Khách mua qua web frontend của shop."
+    ],
+    "initial_question": "Hãy tự viết chính sách vòng đời giữ hàng và cách frontend tích hợp với API dựa trên tình huống cụ thể, rồi ship API, client mỏng và script mô phỏng trong ba buổi."
+  },
+  "protected_judgments": [
+    {
+      "id": "PJ-HOLD-001",
+      "title": "Hold lifecycle and API-frontend integration contract",
+      "prompt": "Chọn vòng đời của hold (thời hạn, trạng thái, xử lý tranh chấp món cuối, thanh toán đến muộn) và cách frontend biết kết quả, có lý do gắn với tình huống cụ thể.",
+      "required_observations": [
+        "Chính sách viết trước khi giao code, bằng lời của learner, kiểm bằng tình huống cụ thể gồm tranh chấp món cuối và thanh toán đến muộn.",
+        "Có lý do cho thời hạn hold, cách chống bán vượt và cách client nhận kết quả.",
+        "Mọi trạng thái kết thúc đều nhìn thấy được ở phía khách."
+      ]
+    }
+  ],
+  "facts": [
+    {
+      "id": "F-HOLD-001",
+      "visibility": "public",
+      "statement": "Mỗi đợt mở bán có số lượng nhỏ, ví dụ 20 đơn vị, và hàng thường hết trong vài phút đầu.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-HOLD-002",
+      "visibility": "public",
+      "statement": "Cổng thanh toán xác nhận bất đồng bộ, từ vài giây đến vài phút sau khi khách bấm thanh toán, bằng cách gọi một endpoint của shop.",
+      "discovery_paths": []
+    },
+    {
+      "id": "F-HOLD-003",
+      "visibility": "discoverable",
+      "statement": "Cổng thanh toán gọi endpoint xác nhận của shop kèm một chữ ký tạo từ secret dùng chung; endpoint này nằm trên cùng domain public với API mà frontend gọi.",
+      "discovery_paths": [
+        "Hỏi ai được gọi endpoint xác nhận thanh toán",
+        "Hỏi cổng thanh toán gửi kèm gì để shop biết request là thật"
+      ]
+    },
+    {
+      "id": "F-HOLD-004",
+      "visibility": "discoverable",
+      "statement": "Khi mạng chậm, khách hay bấm nút giữ hàng hai lần, và HTTP client của frontend tự retry một lần khi request quá 5 giây.",
+      "discovery_paths": [
+        "Hỏi khách có hay bấm nhiều lần không",
+        "Hỏi frontend có tự retry request không",
+        "Hỏi chuyện gì xảy ra khi mạng chậm lúc giữ hàng"
+      ]
+    },
+    {
+      "id": "F-HOLD-005",
+      "visibility": "discoverable",
+      "statement": "Một đợt mở bán có khoảng 500 khách cùng mở trang chờ kết quả; đợt trước frontend hỏi trạng thái mỗi 200 ms và API chậm hẳn đi, kể cả request giữ hàng.",
+      "discovery_paths": [
+        "Hỏi có bao nhiêu khách cùng lúc trong một đợt",
+        "Hỏi frontend đang lấy kết quả thanh toán thế nào",
+        "Hỏi đợt trước API có chậm không"
+      ]
+    }
+  ],
+  "future_events": [
+    {
+      "id": "EV-HOLD-001",
+      "kind": "incident",
+      "trigger": "Sau khi learner đã nộp chính sách viết tay và demo tình huống thanh toán đến sau khi hold hết hạn.",
+      "statement": "Cổng thanh toán bị timeout phía họ nên gửi lại cùng một xác nhận thanh toán thành công hai lần; lần thứ hai đến sau khi hold đã hết hạn và đơn vị đó đã được giữ cho khách khác.",
+      "purpose": "Kiểm tra vòng đời hold có chịu được xác nhận trùng và đến muộn mà không tạo hai đơn, không bán vượt, và khách vẫn thấy kết quả đúng."
+    }
+  ],
+  "rubric": [
+    {
+      "id": "RUB-HOLD-001",
+      "name": "Scenario-grounded hold lifecycle",
+      "required_judgment_ids": [
+        "PJ-HOLD-001"
+      ],
+      "observable_signals": [
+        "Chính sách do learner viết bằng lời của mình trước khi giao code và gắn với tình huống cụ thể.",
+        "Lý do cho thời hạn hold, cách chống bán vượt và xử lý thanh toán đến muộn."
+      ]
+    },
+    {
+      "id": "RUB-HOLD-002",
+      "name": "Contention and lifecycle robustness",
+      "required_judgment_ids": [
+        "PJ-HOLD-001"
+      ],
+      "observable_signals": [
+        "Mô phỏng tranh chấp cho thấy không bán vượt.",
+        "Chính sách giữ ổn định hoặc được sửa có lý do khi gặp xác nhận trùng và đến muộn."
+      ]
+    },
+    {
+      "id": "RUB-HOLD-003",
+      "name": "Integration security and performance (product understanding)",
+      "required_judgment_ids": [],
+      "required_implied_requirement_ids": [
+        "IR-HOLD-001",
+        "IR-HOLD-002",
+        "IR-HOLD-003"
+      ],
+      "observable_signals": [
+        "Chỉ cổng thanh toán mới xác nhận được thanh toán.",
+        "Bấm hai lần hoặc client retry không tạo hai hold.",
+        "Cách client chờ kết quả không làm API chậm khi nhiều khách cùng chờ."
+      ]
+    }
+  ],
+  "transfer": {
+    "prompt": "Áp dụng cách thiết kế vòng đời giữ chỗ và hợp đồng tích hợp sang đặt chỗ ngồi cho một buổi diễn, nơi khách chọn ghế cụ thể và nhà cung cấp vé xác nhận bất đồng bộ.",
+    "same_principle": "Tài nguyên có hạn cần vòng đời rõ ràng khi kết quả đến bất đồng bộ, và client phải tích hợp an toàn, chịu tải mà vẫn cho khách thấy kết quả."
+  },
+  "implied_requirements": [
+    {
+      "id": "IR-HOLD-001",
+      "kind": "non-functional",
+      "statement": "Only the payment provider can confirm a payment: the confirmation endpoint rejects requests without a valid provider signature, so a buyer or the frontend cannot mark a hold paid.",
+      "derived_from": "Public business goal of not handing out items without payment, and the provider calling a shop endpoint on the same public API the frontend uses.",
+      "fact_ids": [
+        "F-HOLD-003"
+      ],
+      "check": "Call the payment confirmation endpoint directly (for example with curl) for an existing hold without a valid provider signature; it is rejected and the hold does not become an order."
+    },
+    {
+      "id": "IR-HOLD-002",
+      "kind": "functional",
+      "statement": "A repeated hold request from the same checkout attempt (double click or client retry) does not create a second hold or take extra units.",
+      "derived_from": "Public goal of not overselling a small stock, combined with buyers on a slow network during a drop.",
+      "fact_ids": [
+        "F-HOLD-004"
+      ],
+      "check": "Send the same hold request twice, once sequentially and once concurrently, as the client would on a double click or retry; only one hold exists and only its units are taken."
+    },
+    {
+      "id": "IR-HOLD-003",
+      "kind": "non-functional",
+      "statement": "The way the client waits for the payment result keeps the request rate per waiting buyer bounded, so hundreds of waiting buyers do not noticeably slow down hold requests.",
+      "derived_from": "Public goal that buyers always see their result during a drop where stock sells out in minutes, and many buyers waiting at once.",
+      "fact_ids": [
+        "F-HOLD-005"
+      ],
+      "check": "Simulate at least 200 buyers waiting for results for one minute while new holds are made; the status traffic per waiting buyer is bounded by the client's design, and hold request latency stays within the target the learner states."
+    }
+  ]
+}
