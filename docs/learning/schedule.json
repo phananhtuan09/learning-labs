@@ -33,14 +33,18 @@
       "status": "in-progress",
       "completed_session_ids": [
         "cron-doctor-001",
-        "paseo-live-activity-cards-001"
+        "paseo-live-activity-cards-001",
+        "paseo-running-step-policy-001"
       ],
       "evidence_refs": [
         "DL-001",
         "AT-001",
         "AS-001",
         "AS-002",
-        "AS-004"
+        "AS-004",
+        "RV-001",
+        "ERL-001",
+        "AS-003"
       ],
       "adjustments": [
         {
@@ -52,6 +56,11 @@
           "session_id": "paseo-live-activity-cards-001",
           "reason": "The artifact works and scope is now explicit, but the core judgment is still agent-proposed; a short extension of the same plugin where the learner writes the open/collapse or attention decision, tested against a concrete scenario, before delegating code would produce learner-owned evidence.",
           "recorded_at": "2026-11-08T05:53:39Z"
+        },
+        {
+          "session_id": "paseo-running-step-policy-001",
+          "reason": "The live-state policy is mostly sound; a different context (a deploy CLI progress display where steps can be progressing, silent or hung) would show whether the learner can write and justify a live-state policy in their own words without a third iteration on the same plugin.",
+          "recorded_at": "2026-11-26T03:37:53Z"
         }
       ]
     },

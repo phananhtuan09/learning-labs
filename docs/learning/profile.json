@@ -30,15 +30,16 @@
     {
       "id": "COMP-LIVE-CARDS-001",
       "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
-      "latest_outcome": "inconclusive",
-      "independence": "assisted",
-      "last_session_id": "paseo-live-activity-cards-001",
-      "updated_at": "2026-11-08T05:53:39Z"
+      "latest_outcome": "needs-revisit",
+      "independence": "independent",
+      "last_session_id": "paseo-running-step-policy-001",
+      "updated_at": "2026-11-26T03:37:53Z"
     }
   ],
   "current_gaps": [
-    "learning-evidence-gap: the owned decision (card model and open/collapse policy) was proposed by the AI agent and chosen by the learner instead of being designed by the learner and stated in the task.",
-    "reasoning-gap: the open/collapse policy was justified by a general preference without testing it against a concrete user scenario such as a long-running command."
+    "learning-evidence-gap: the policy text and decision record were drafted by the coding agent, so the learner's own reasoning is visible only for the dropped threshold and progress signals.",
+    "reasoning-gap: no stated reason for Brief and Steps sharing the same running signals.",
+    "system-evidence-gap: parallel tool calls in one step were not demonstrated at runtime."
   ],
   "progress_history": [
     {
@@ -79,13 +80,37 @@
         "reasoning-gap: the open/collapse policy was justified by a general preference without testing it against a concrete user scenario such as a long-running command."
       ],
       "completed_at": "2026-11-08T05:53:39Z"
+    },
+    {
+      "session_id": "paseo-running-step-policy-001",
+      "competency_id": "COMP-LIVE-CARDS-001",
+      "outcome": "needs-revisit",
+      "result_summary": {
+        "independent": [
+          "Grounded the running-step policy in what Claude Code actually reports and dropped signals the plugin has no data for, with a stated reason.",
+          "Shipped waiting-for-approval, in-background, stopped and finished states that are distinguishable at Brief without clicking, and kept the clock across reload.",
+          "Kept the policy under the passphrase counterexample with a reason, and filled the missing 'killed' state."
+        ],
+        "assisted": [],
+        "not_demonstrated": [
+          "A reason in your own words for Brief and Steps showing the same signals.",
+          "Stable, countable display when many tool calls run in parallel in one step.",
+          "Full unchanged and plugin-disable restoring defaults were not re-run in this round."
+        ]
+      },
+      "gaps": [
+        "learning-evidence-gap: the policy text and decision record were drafted by the coding agent, so the learner's own reasoning is visible only for the dropped threshold and progress signals.",
+        "reasoning-gap: no stated reason for Brief and Steps sharing the same running signals.",
+        "system-evidence-gap: parallel tool calls in one step were not demonstrated at runtime."
+      ],
+      "completed_at": "2026-11-26T03:37:53Z"
     }
   ],
-  "active_session_id": "paseo-running-step-policy-001",
+  "active_session_id": null,
   "next_action": {
-    "type": "retry-similar",
-    "reason": "The artifact works and scope is now explicit, but the core judgment is still agent-proposed; a short extension of the same plugin where the learner writes the open/collapse or attention decision, tested against a concrete scenario, before delegating code would produce learner-owned evidence."
+    "type": "transfer-context",
+    "reason": "The live-state policy is mostly sound; a different context (a deploy CLI progress display where steps can be progressing, silent or hung) would show whether the learner can write and justify a live-state policy in their own words without a third iteration on the same plugin."
   },
   "cadence": "mini-project",
-  "updated_at": "2026-11-08T06:06:51Z"
+  "updated_at": "2026-11-26T03:37:53Z"
 }

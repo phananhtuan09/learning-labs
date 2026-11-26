@@ -4,9 +4,9 @@
   "case_id": "paseo-running-step-policy",
   "case_path": "docs/learning/cases/paseo-running-step-policy.json",
   "case_checksum": "c79b8ffb649370ae0d691e862b084567e31f8221f419f67810cd19108b94d398",
-  "status": "active",
+  "status": "completed",
   "started_at": "2026-11-08T06:06:51Z",
-  "updated_at": "2026-11-08T06:23:36Z",
+  "updated_at": "2026-11-26T03:37:53Z",
   "active_competency": {
     "id": "COMP-LIVE-CARDS-001",
     "name": "Chuẩn hóa dữ liệu không đồng nhất thành UI model và thiết kế chính sách hiển thị trạng thái live",
@@ -106,10 +106,41 @@
     {
       "id": "PJ-RUN-POLICY-001",
       "title": "Running-step display policy at Brief and Steps",
-      "status": "open",
-      "first_attempt": null,
-      "revisions": [],
-      "closed_at": null
+      "status": "assessment-closed",
+      "first_attempt": {
+        "id": "AT-001",
+        "summary": "Brief and Steps show the same set of signals for a running step (they differ only in layout): a per-step elapsed clock, 'Waiting for approval' without a clock while a permission is pending (clock starts at approval), 'In background' with a running clock for timeout or run_in_background commands until the completion notification, then 'Ran' with total time or 'exit N' in red; 'status unknown' without a clock when the agent closed with no notification; 'denied' as a failed step; stopped keeps the existing canceled display. No 'slow' threshold and no silence signal.",
+        "reasoning": "Learner: Claude Code sends no output while a shell command runs (observed in the session-1 spike), so any progress, line-count, last-line or slow signal would be made up; elapsed time, waiting-for-approval and background state are the signals that support deciding whether to let the agent continue or stop it without opening the body or switching to Full. The learner states they decided the scope and the content of the three main choices (same signals at Brief and Steps, dropping the long-run threshold and silence signal, the new waiting/background/unknown states); the policy note and decision record were written by their coding agent, and the decision record lists its source as accepting the agent's recommendations after grill rounds and the spike.",
+        "assumptions": [
+          "Product lens - who and what: helps the learner decide whether to let a Claude Code agent continue or stop it without opening the body or switching to Full.",
+          "Product lens - success: without clicking, the user knows how long a command has run, whether it waits for approval, or whether it moved to the background; reloading mid-run keeps the clock; a finished turn at Brief stays compact.",
+          "Applies only to Claude Code 2.1.319 on Paseo 0.15.3.",
+          "Unsure: runtime E2E evidence exists but the learner is not certain every scenario was run."
+        ],
+        "constraints": [],
+        "invariants": [],
+        "risks": [],
+        "predictions": [],
+        "tradeoffs": [
+          "Product lens - deliberately out of scope: simulated progress (slow mark, line count, last output line) because Claude Code sends no running output, so such signals would be invented; also Codex support, cards for replies or errors, risk classification and notifications, without stated reasons.",
+          "Accepts not knowing whether a command is still producing output; the acceptance criterion about output was replaced by elapsed time, approval and background state."
+        ],
+        "independent": true,
+        "recorded_at": "2026-11-26T03:29:18Z"
+      },
+      "revisions": [
+        {
+          "id": "RV-001",
+          "summary": "Adds a policy state for a background command killed by a daemon restart: chip shows 'killed' in red with an X and the total time ('killed · 3m 22s'). Keeps the rest of the policy unchanged after the passphrase counterexample: the hung git command shows spinner and clock, then 'In background · 2m 05s' after the timeout; 'Waiting for approval' stays reserved for Claude Code permission requests.",
+          "reason": "Feedback pointed out that 'killed' existed in code but not in the written policy. For the passphrase counterexample the learner defended the policy: Claude Code sends no output while a command runs, so the plugin has no data to tell a build in progress from a command waiting for input; this is the known limitation already written in the policy.",
+          "evidence_refs": [
+            "AS-002",
+            "EV-RUN-POLICY-001"
+          ],
+          "recorded_at": "2026-11-26T03:34:29Z"
+        }
+      ],
+      "closed_at": "2026-11-26T03:34:53Z"
     }
   ],
   "discovered_fact_ids": [
@@ -117,8 +148,20 @@
     "F-RUN-POLICY-002"
   ],
   "discovery_records": [],
-  "released_event_ids": [],
-  "event_release_records": [],
+  "released_event_ids": [
+    "EV-RUN-POLICY-001"
+  ],
+  "event_release_records": [
+    {
+      "id": "ERL-001",
+      "event_id": "EV-RUN-POLICY-001",
+      "trigger_evidence": [
+        "AT-001",
+        "DL-001"
+      ],
+      "released_at": "2026-11-26T03:29:28Z"
+    }
+  ],
   "assistance": [
     {
       "id": "AS-001",
@@ -132,6 +175,32 @@
       "judgment_status_before": "open",
       "impact": "Challenges the learner's early direction on silence detection, long-run threshold and Brief/Steps difference without proposing a policy; the learner still owns the choice.",
       "recorded_at": "2026-11-08T06:23:36Z"
+    },
+    {
+      "id": "AS-002",
+      "judgment_id": "PJ-RUN-POLICY-001",
+      "level": 1,
+      "kind": "neutral-question",
+      "content": "Doc-code drift: after a daemon restart the code shows a background command as 'killed' in red, but the written policy has no such state. Which should it be per your policy, what do you want to see at Brief in that case, and does it help a different decision than 'exit N'?",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": false,
+      "judgment_status_before": "first-attempt-recorded",
+      "impact": "Asks the learner to reconcile an unpolicied state in code with the written policy without suggesting an answer.",
+      "recorded_at": "2026-11-26T03:29:28Z"
+    },
+    {
+      "id": "AS-003",
+      "judgment_id": "PJ-RUN-POLICY-001",
+      "level": 3,
+      "kind": "user-scenario-question",
+      "content": "Scenario: in one step Claude Code reads 8 files at once at Brief, and they finish a few hundred milliseconds apart. What do you see on the timeline while they finish, and can you still tell how many are running?",
+      "material": false,
+      "material_reason": null,
+      "before_first_attempt": false,
+      "judgment_status_before": "under-review",
+      "impact": "User-scenario question for the missed parallel-tool-call implied requirement; does not state the requirement.",
+      "recorded_at": "2026-11-26T03:29:28Z"
     }
   ],
   "evidence_requests": [],
@@ -139,27 +208,96 @@
   "evidence_interpretations": [],
   "delivery": {
     "id": "DL-001",
-    "status": "not-started",
-    "summary": null,
-    "artifact_refs": [],
-    "completed_criteria": [],
-    "limitations": [],
-    "recorded_at": null
+    "status": "shipped",
+    "summary": "agent-activity is running on the learner's local daemon with no error; typecheck is clean and 74 unit tests pass (run by reviewer). Learner-provided runtime E2E (isolated daemon, Claude Code 2.1.319, Paseo 0.15.3, Haiku 5.5) shows waiting for approval then a clock after Allow, timeout and run_in_background steps as 'In background' with a clock then total time, a stopped step as struck-through canceled with a Ban icon and no clock, a kept clock after reload, and 'killed' after a daemon restart. The policy note was committed (098b427) before the implementation commits.",
+    "artifact_refs": [
+      "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/agent-activity@0285e921",
+      "/home/tuanpa/Documents/projects/tuanp-github/paseo-plugins/docs/testing/evidence/agent-activity/running-step-e2e@0285e921",
+      "https://github.com/phananhtuan09/paseo-plugins/pull/6"
+    ],
+    "completed_criteria": [
+      "At Brief and Steps, a running step shows the live signals the policy defines without any click.",
+      "A step that finishes, fails, or is stopped changes to its final state as the policy defines, and the final state is distinguishable at a glance.",
+      "The plugin installs on the local daemon and reports running with no error."
+    ],
+    "limitations": [
+      "The policy note and decision record were written by the learner's coding agent; the learner states the decisions are theirs, so the 'written in their own words' part of the first definition-of-done item is not met literally.",
+      "Full unchanged and plugin-disable restoring defaults were not re-run in this round (@K3, @K4, @K8 not re-run); evidence for them is from the previous session.",
+      "Parallel tool calls (6 or more reads in one step) were not demonstrated at runtime.",
+      "'status unknown' is covered by unit tests only; 'killed' after a daemon restart is implemented but not covered by the written policy.",
+      "Reviewer ran typecheck, unit tests and plugin status and read the E2E screenshots; the live E2E was not re-run by the reviewer. Chromium only."
+    ],
+    "recorded_at": "2026-11-26T03:29:18Z"
   },
   "assessment": {
-    "dimensions": [],
+    "dimensions": [
+      {
+        "id": "RUB-RUN-POLICY-001",
+        "rating": "partial",
+        "independence": "independent",
+        "evidence": [
+          "AT-001",
+          "AS-001",
+          "DL-001"
+        ],
+        "limitation": "The policy was committed before the implementation and lists 17 concrete scenarios, and the learner explained in their own words why there is no long-run threshold or progress signal (Claude Code sends no running output). The written policy and decision record were drafted by the coding agent, and the decision record cites accepting the agent's recommendations; no reason in the learner's own words was given for showing the same signals at Brief and Steps."
+      },
+      {
+        "id": "RUB-RUN-POLICY-002",
+        "rating": "demonstrated",
+        "independence": "independent",
+        "evidence": [
+          "AT-001",
+          "AS-002",
+          "RV-001",
+          "ERL-001",
+          "DL-001"
+        ],
+        "limitation": "Running, waiting for approval, background, stopped and finished states are distinct in the E2E screenshots. Output versus silence is not distinguished; on the passphrase counterexample the learner kept the policy with a reason tied to the spike limitation, and added the missing 'killed' state after feedback. The spike itself was executed by the coding agent."
+      },
+      {
+        "id": "RUB-RUN-POLICY-003",
+        "rating": "partial",
+        "independence": "independent",
+        "evidence": [
+          "AT-001",
+          "AS-003",
+          "DL-001"
+        ],
+        "limitation": "Stopping mid-run was self-identified: it is a named scenario in the policy before feedback and is shown at runtime as a struck-through canceled step with no clock. Parallel tool calls were prompted by feedback; the answer describes one chip per step with its own clock but not whether rows stay stable while they finish or how many are still running, and no 6-read runtime run was shown."
+      }
+    ],
     "result_summary": {
-      "independent": [],
+      "independent": [
+        "Grounded the running-step policy in what Claude Code actually reports and dropped signals the plugin has no data for, with a stated reason.",
+        "Shipped waiting-for-approval, in-background, stopped and finished states that are distinguishable at Brief without clicking, and kept the clock across reload.",
+        "Kept the policy under the passphrase counterexample with a reason, and filled the missing 'killed' state."
+      ],
       "assisted": [],
-      "not_demonstrated": []
+      "not_demonstrated": [
+        "A reason in your own words for Brief and Steps showing the same signals.",
+        "Stable, countable display when many tool calls run in parallel in one step.",
+        "Full unchanged and plugin-disable restoring defaults were not re-run in this round."
+      ]
     },
-    "gaps": [],
-    "outcome": null,
-    "limitations": [],
+    "gaps": [
+      "learning-evidence-gap: the policy text and decision record were drafted by the coding agent, so the learner's own reasoning is visible only for the dropped threshold and progress signals.",
+      "reasoning-gap: no stated reason for Brief and Steps sharing the same running signals.",
+      "system-evidence-gap: parallel tool calls in one step were not demonstrated at runtime."
+    ],
+    "outcome": "needs-revisit",
+    "limitations": [
+      "Reviewer ran typecheck, 74 unit tests and plugin status and read the learner's E2E screenshots; live E2E was not re-run by the reviewer.",
+      "Attribution of the policy content rests on the learner's statement that they decided the scope and the three main choices.",
+      "Applies only to Claude Code 2.1.319 on Paseo 0.15.3, Chromium."
+    ],
     "disputes": [],
-    "next_action": null,
-    "accepted_by_human": false,
-    "accepted_at": null
+    "next_action": {
+      "type": "transfer-context",
+      "reason": "The live-state policy is mostly sound; a different context (a deploy CLI progress display where steps can be progressing, silent or hung) would show whether the learner can write and justify a live-state policy in their own words without a third iteration on the same plugin."
+    },
+    "accepted_by_human": true,
+    "accepted_at": "2026-11-26T03:37:53Z"
   },
   "history": [
     {
@@ -176,6 +314,52 @@
       "at": "2026-11-08T06:23:36Z",
       "type": "assistance-recorded",
       "detail": "Recorded level 3 assistance for PJ-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:29:18Z",
+      "type": "first-attempt-recorded",
+      "detail": "Recorded independent attempt for PJ-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:29:18Z",
+      "type": "deliverable-recorded",
+      "detail": "Recorded mini-project delivery as shipped."
+    },
+    {
+      "at": "2026-11-26T03:29:28Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 1 assistance for PJ-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:29:28Z",
+      "type": "assistance-recorded",
+      "detail": "Recorded level 3 assistance for PJ-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:29:28Z",
+      "type": "future-event-released",
+      "detail": "Released predeclared event EV-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:34:29Z",
+      "type": "revision-recorded",
+      "detail": "Recorded revision for PJ-RUN-POLICY-001."
+    },
+    {
+      "at": "2026-11-26T03:34:53Z",
+      "type": "assessment-closed",
+      "detail": "Set PJ-RUN-POLICY-001 to assessment-closed."
+    },
+    {
+      "at": "2026-11-26T03:35:07Z",
+      "type": "assessment-proposed",
+      "detail": "Prepared an evidence-bound assessment for human review."
+    },
+    {
+      "at": "2026-11-26T03:37:53Z",
+      "type": "session-completed",
+      "detail": "Human accepted the assessment and progression recommendation."
     }
-  ]
+  ],
+  "completed_at": "2026-11-26T03:37:53Z"
 }
